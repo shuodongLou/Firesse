@@ -1,9 +1,19 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>FIRESSE</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-start small color="light">
+        <ion-icon name="contact"></ion-icon>
+        登录
+      </button>
+      <button ion-button icon-start small color="light" (click)="gotoSignup()">
+        <ion-icon name="create"></ion-icon>
+        注册
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 

@@ -11,4 +11,8 @@ export class HomePage {
 
   }
 
+  gotoSignup() {
+    this.navCtrl.push("SignupPage");
+  }
+
 }
