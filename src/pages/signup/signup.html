@@ -16,37 +16,24 @@
 <ion-content padding>
 
   <form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm.value)">
-    <ion-item [ngClass]="{'error-border':!authForm.controls.phoneNum.valid && authForm.controls.phoneNum.touched}">
-      <ion-label color="primary" floating>手机号码</ion-label>
-      <ion-input formControlName="phoneNum" type="tel"></ion-input>
-    </ion-item>
-
-    <ion-item *ngIf="authForm.controls.phoneNum.hasError('pattern') && authForm.controls.phoneNum.touched">
-      <p>抱歉，您需要输入正确格式的手机号码！</p>
-    </ion-item>
-    <ion-item *ngIf="authForm.controls.phoneNum.hasError('minLength') && authForm.controls.phoneNum.touched">
-      <p>抱歉，手机号码长度有误！</p>
-    </ion-item>
-    <ion-item *ngIf="authForm.controls.phoneNum.hasError('required') && authForm.controls.phoneNum.touched">
-      <p>抱歉，请您输入手机号码！</p>
-    </ion-item>
-
-    <ion-item [ngClass]="{'error-border':!authForm.controls.password.valid && authForm.controls.password.touched}">
-      <ion-label color="primary" floating>密码</ion-label>
-      <ion-input formControlName="password" type="password"></ion-input>
-    </ion-item>
-
-    <ion-item *ngIf="authForm.controls.password.hasError('required') && authForm.controls.password.touched">
-      <p>抱歉，请您输入密码！</p>
-    </ion-item>
-    <ion-item *ngIf="authForm.controls.password.hasError('minLength') && authForm.controls.password.touched">
-      <p>抱歉，密码必须在8位以上！</p>
-    </ion-item>
-    
     <ion-item>
-      <ion-label color="primary" floating>重复密码</ion-label>
-      <ion-input formControlName="re_password" type="password"></ion-input>
+      <ion-label color="primary" floating>手机号码</ion-label>
+      <ion-input formControlName="phoneNum" type="tel" [class.invalid]="!authForm.controls.phoneNum.valid && authForm.controls.phoneNum.touched"></ion-input>
     </ion-item>
+
+    <ion-item  color="danger" *ngIf="!authForm.controls.phoneNum.valid && authForm.controls.phoneNum.touched">
+      <p>抱歉，请输入有效的电话号码！</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" floating>密码</ion-label>
+      <ion-input formControlName="password" type="password" [class.invalid]="!authForm.controls.password.valid && authForm.controls.password.touched"></ion-input>
+    </ion-item>
+
+    <ion-item color="danger" *ngIf="!authForm.controls.password.valid && authForm.controls.password.touched">
+      <p>抱歉，请您输入有效格式密码！（最少8位）</p>
+    </ion-item>
+
 
     <button ion-button full color="primary" [disabled]="!authForm.valid" style="margin-top: 20px;" type="submit">一键注册并登陆</button>
   </form>

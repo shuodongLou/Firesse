@@ -22,8 +22,7 @@ export class SignupPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder) {
     this.authForm = formBuilder.group({
         phoneNum: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(11), Validators.maxLength(11)])],
-        password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
-        re_password: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
+        password: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
     });
   }
 
