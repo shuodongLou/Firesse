@@ -18,10 +18,10 @@
   <form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm.value)">
     <ion-item>
       <ion-label color="primary" floating>手机号码</ion-label>
-      <ion-input formControlName="phoneNum" type="tel" [class.invalid]="!authForm.controls.phoneNum.valid && authForm.controls.phoneNum.touched"></ion-input>
+      <ion-input formControlName="phonenum" type="tel" [class.invalid]="!authForm.controls.phonenum.valid && authForm.controls.phonenum.touched"></ion-input>
     </ion-item>
 
-    <ion-item  color="danger" *ngIf="!authForm.controls.phoneNum.valid && authForm.controls.phoneNum.touched">
+    <ion-item  color="danger" *ngIf="!authForm.controls.phonenum.valid && authForm.controls.phonenum.touched">
       <p>抱歉，请输入有效的电话号码！</p>
     </ion-item>
 

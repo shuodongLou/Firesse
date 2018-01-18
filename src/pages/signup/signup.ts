@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthProvider } from '../../providers/auth/auth';
 
 /**
  * Generated class for the SignupPage page.
@@ -12,22 +13,39 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 
 @IonicPage()
 @Component({
-  selector: 'page-signup',
-  templateUrl: 'signup.html',
+    selector: 'page-signup',
+    templateUrl: 'signup.html',
 })
 export class SignupPage {
 
-  authForm: FormGroup;
+    authForm: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder) {
-    this.authForm = formBuilder.group({
-        phoneNum: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(11), Validators.maxLength(11)])],
-        password: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
-    });
-  }
+    constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public auth: AuthProvider) {
+        this.authForm = formBuilder.group({
+            phonenum: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(11), Validators.maxLength(11)])],
+            password: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
+        });
+    }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
-  }
+    onSubmit(data) {
+        let details = {
+            user: {
+                password: data.password
+            },
+            phonenum: data.phonenum
+        }
+        console.log("before createAccount");
+
+        this.auth.createAccount(details).then((res) => {
+            console.log("Already authorised...");
+        }, (err) => {
+            console.log("Not authorized...");
+        });
+        console.log(details);
+    }
+
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad SignupPage');
+    }
 
 }
