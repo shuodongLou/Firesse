@@ -29,10 +29,8 @@ export class SignupPage {
 
     onSubmit(data) {
         let details = {
-            user: {
-                password: data.password
-            },
-            phonenum: data.phonenum
+            username: data.phonenum,
+            password: data.password
         }
         console.log("before createAccount");
 

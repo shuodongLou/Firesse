@@ -63,7 +63,18 @@ export class AuthProvider {
   }
 
   login(credentials){
-      
+      return new Promise((resolve, reject) => {
+          let headers = new HttpHeaders().set('Content-Type', 'application/json');
+          this.http.post('http://localhost:8000/api-token-auth/', JSON.stringify(credentials), {headers})
+              .subscribe(res => {
+                  console.log(res);
+                  this.storage.set('token', res.token);
+                  resolve(res);
+              }, (err) => {
+                  console.log(err);
+                  reject(err);
+              });
+      });
   }
 
 }
