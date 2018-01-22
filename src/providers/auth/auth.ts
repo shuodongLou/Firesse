@@ -13,6 +13,7 @@ import 'rxjs/add/operator/map';
 export class AuthProvider {
 
   public token: any;
+  public isLoggedIn: boolean;
 
   constructor(public http: HttpClient, public storage: Storage) {
 
@@ -59,7 +60,6 @@ export class AuthProvider {
                   reject(err);
               });
       });
-
   }
 
   login(credentials){
@@ -67,14 +67,24 @@ export class AuthProvider {
           let headers = new HttpHeaders().set('Content-Type', 'application/json');
           this.http.post('http://localhost:8000/api-token-auth/', JSON.stringify(credentials), {headers})
               .subscribe(res => {
-                  console.log(res);
-                  this.storage.set('token', res.token);
+                  console.log(res['token']);
+                  this.storage.set('token', res['token']);
+                  this.isLoggedIn = true;
+                  console.log("after storage.set()");
+
+
                   resolve(res);
               }, (err) => {
-                  console.log(err);
                   reject(err);
               });
       });
+  }
+
+  logout(){
+      console.log('logout() is called...');
+      this.storage.set('token', '');
+      this.isLoggedIn = false;
+      console.log('after storage.set()');
   }
 
 }

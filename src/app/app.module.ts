@@ -43,5 +43,5 @@ import { IonicStorageModule } from '@ionic/storage';
 export class AppModule {
 
   rootPage:any = 'HomePage';
-
+  isLoggedIn: boolean = false;
 }
