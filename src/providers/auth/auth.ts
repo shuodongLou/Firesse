@@ -14,6 +14,8 @@ export class AuthProvider {
 
   public token: any;
   public isLoggedIn: boolean;
+  public role: any;
+  public pk: any;
 
   constructor(public http: HttpClient, public storage: Storage) {
 
@@ -65,13 +67,15 @@ export class AuthProvider {
   login(credentials){
       return new Promise((resolve, reject) => {
           let headers = new HttpHeaders().set('Content-Type', 'application/json');
-          this.http.post('http://localhost:8000/api-token-auth/', JSON.stringify(credentials), {headers})
+          this.http.post('http://localhost:8000/custom-token-auth/', JSON.stringify(credentials), {headers})
               .subscribe(res => {
-                  console.log(res['token']);
+                  console.log(res);
                   this.storage.set('token', res['token']);
+                  this.storage.set('role', res['role']);
                   this.isLoggedIn = true;
+                  this.role = res['role'];
+                  this.pk = res['pk'];
                   console.log("after storage.set()");
-
 
                   resolve(res);
               }, (err) => {
@@ -84,6 +88,7 @@ export class AuthProvider {
       console.log('logout() is called...');
       this.storage.set('token', '');
       this.isLoggedIn = false;
+      this.role = '';
       console.log('after storage.set()');
   }
 

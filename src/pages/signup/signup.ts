@@ -43,7 +43,8 @@ export class SignupPage {
 
         let details = {
             username: data.phonenum,
-            password: data.password
+            password: data.password,
+            role: 'customer'
         }
         console.log("before createAccount");
         this.auth.createAccount(details).then((res) => {
@@ -53,16 +54,15 @@ export class SignupPage {
             console.log("Not authorized...");
             loading.dismiss();
         }).then(() => {
+            this.auth.login(details).then((res) => {
+                console.log("Logged in...");
+                console.log(res);
 
-          this.auth.login(details).then((res) => {
-              console.log("Logged in...");
-              console.log(res);
+                this.navCtrl.setRoot(HomePage);
+            }, (err) => {
+                console.log("Not logged in...");
 
-              this.navCtrl.setRoot(HomePage);
-          }, (err) => {
-              console.log("Not logged in...");
-
-          });
+            });
         });
 
     }

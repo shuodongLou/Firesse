@@ -22,20 +22,11 @@ export class HomePage {
   gotoSignin() {
     this.navCtrl.push("SigninPage");
   }
+  gotoProfile() {
+    this.navCtrl.push("ProfilePage");
+  }
 
   ionViewDidLoad() {
-    /*
-    this.storage.get('token').then((value) => {
-      if (value == '' || value == null){
-        this.isLoggedIn = false;
-      } else {
-        this.isLoggedIn = true;
-      }
-      console.log(value);
-      console.log(this.isLoggedIn);
-      console.log("HomePage Refreshed");
-    })
-    */
     console.log("HomePage loaded...");
   }
 
