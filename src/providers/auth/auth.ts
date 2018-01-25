@@ -12,15 +12,15 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthProvider {
 
-  public token: any;
-  public isLoggedIn: boolean;
-  public role: any;
-  public pk: any;
+  //public token: any;
+  public isLoggedIn=false;
+  //public role: any;
+  //public pk: any;
 
   constructor(public http: HttpClient, public storage: Storage) {
-
   }
 
+/*
   checkAuthentication() {
     console.log("in checkAuthentication");
     return new Promise((resolve, reject) => {
@@ -50,6 +50,7 @@ export class AuthProvider {
       });
     });
   }
+*/
 
   createAccount(details){
       return new Promise((resolve, reject) => {
@@ -72,9 +73,10 @@ export class AuthProvider {
                   console.log(res);
                   this.storage.set('token', res['token']);
                   this.storage.set('role', res['role']);
+                  this.storage.set('pk', res['pk']);
                   this.isLoggedIn = true;
-                  this.role = res['role'];
-                  this.pk = res['pk'];
+                  //this.role = res['role'];
+                  //this.pk = res['pk'];
                   console.log("after storage.set()");
 
                   resolve(res);
@@ -87,9 +89,56 @@ export class AuthProvider {
   logout(){
       console.log('logout() is called...');
       this.storage.set('token', '');
+      this.storage.set('pk', '');
       this.isLoggedIn = false;
-      this.role = '';
       console.log('after storage.set()');
+  }
+
+  retrieveAccountDetails() {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        console.log('token: ', value);
+        let tokenStr = 'Token ' + value;
+        console.log('tokenStr: ', tokenStr);
+        let headers = new HttpHeaders().set('Authorization', tokenStr);
+        this.storage.get('pk').then((value) => {
+          let pk = value;
+          console.log('pk: ', pk);
+          this.http.get('http://localhost:8000/accounts/' + pk, {headers})
+              .subscribe(res => {
+                  console.log('got the res obj');
+                  resolve(res);
+              }, (err) => {
+                  reject(err);
+              });
+        });
+
+      });
+
+    });
+  }
+
+  updateAccountDetails(details) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
+        console.log('Headers: ', headers);
+        console.log(headers.getAll('Content-Type'));
+        console.log(headers.getAll('Authorization'));
+        this.storage.get('pk').then((value) => {
+          let pk = value;
+          this.http.put('http://localhost:8000/accounts/' + pk, JSON.stringify(details), {headers})
+            .subscribe(res => {
+              console.log('updated successfully - res: ', res);
+              resolve(res);
+            }, (err) => {
+              console.log('update failed... err: ', err);
+              reject(err);
+            });
+        });
+      });
+    });
   }
 
 }

@@ -54,6 +54,7 @@ export class HomePage {
   }
 
   checkLogin(): boolean {
+    console.log('checkLogin() called...');
     return this.auth.isLoggedIn;
   }
 

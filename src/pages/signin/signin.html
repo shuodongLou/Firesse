@@ -20,8 +20,8 @@
       <ion-input formControlName="phonenum" type="tel" [class.invalid]="!authForm.controls.phonenum.valid && authForm.controls.phonenum.touched"></ion-input>
     </ion-item>
 
-    <ion-item  color="danger" *ngIf="!authForm.controls.phonenum.valid && authForm.controls.phonenum.touched">
-      <p>抱歉，请输入有效的电话号码！</p>
+    <ion-item *ngIf="!authForm.controls.phonenum.valid && authForm.controls.phonenum.touched">
+      <p ion-text color="danger">抱歉，请输入有效的电话号码！</p>
     </ion-item>
 
     <ion-item>
@@ -29,10 +29,13 @@
       <ion-input formControlName="password" type="password" [class.invalid]="!authForm.controls.password.valid && authForm.controls.password.touched"></ion-input>
     </ion-item>
 
-    <ion-item color="danger" *ngIf="!authForm.controls.password.valid && authForm.controls.password.touched">
-      <p>抱歉，请您输入有效格式密码！（最少8位）</p>
+    <ion-item *ngIf="!authForm.controls.password.valid && authForm.controls.password.touched">
+      <p ion-text color="danger">抱歉，请您输入有效格式密码！（最少8位）</p>
     </ion-item>
 
+    <ion-item *ngIf="failedLoggin && submitAttempt">
+      <p ion-text color="danger">手机号/密码组合错误，请检查后重新输入！</p>
+    </ion-item>
 
     <button ion-button full color="primary" [disabled]="!authForm.valid" style="margin-top: 20px;" type="submit">登录</button>
   </form>

@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>FIRESSE</ion-title>
-    <ion-buttons end *ngIf=!checkLogin()>
+    <ion-buttons end *ngIf=!this.auth.isLoggedIn>
       <button ion-button icon-start small color="light" (click)="gotoSignin()">
         <ion-icon name="contact"></ion-icon>
         登录
@@ -14,10 +14,10 @@
         注册
       </button>
     </ion-buttons>
-    <ion-buttons end *ngIf=checkLogin()>
+    <ion-buttons end *ngIf=this.auth.isLoggedIn>
       <button ion-button icon-start small color="light" (click)="gotoProfile()">
         <ion-icon name="contact"></ion-icon>
-        我的
+        我
       </button>
       <button ion-button icon-start small color="light" (click)="logoutAlert()">
         <ion-icon name="walk"></ion-icon>

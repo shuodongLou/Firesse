@@ -19,6 +19,8 @@ import { HomePage } from '../home/home'
 export class SigninPage {
 
   authForm: FormGroup;
+  submitAttempt: boolean;
+  failedLoggin: boolean;
 
 
   constructor(public navCtrl: NavController,
@@ -35,6 +37,8 @@ export class SigninPage {
   }
 
   onSubmit(data) {
+      this.submitAttempt = true;
+
       let loading = this.loadingCtrl.create({
         content: '登录中...'
       });
@@ -54,7 +58,13 @@ export class SigninPage {
       }, (err) => {
           console.log("Not logged in...");
           loading.dismiss();
+          this.failedLoggin = true;
       });
+  }
+
+  isLogged(): boolean {
+    console.log('isLogged() called, returned: ', this.auth.isLoggedIn);
+    return this.auth.isLoggedIn;
   }
 
   ionViewDidLoad() {

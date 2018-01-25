@@ -21,7 +21,9 @@
     <ion-item>
       <ion-label>生日</ion-label>
       <ion-datetime displayFormat="YYYY MMM DD"
-        monthShortNames="01月, 02月, 03月, 04月, 05月, 06月, 07月, 08月, 09月, 10月, 11月, 12月">
+        monthShortNames="01月, 02月, 03月, 04月, 05月, 06月, 07月, 08月, 09月, 10月, 11月, 12月"
+        (ionChange)="updateBirthday()" [(ngModel)]="date"
+        cancelText="取消" doneText="确定">
       </ion-datetime>
     </ion-item>
   </ion-list>
