@@ -38,7 +38,6 @@ export class HomePage {
         {
           text: '取消',
           role: 'cancel',
-
         },
         {
           text: '确定',

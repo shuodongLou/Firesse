@@ -44,7 +44,8 @@ export class SignupPage {
         let details = {
             username: data.phonenum,
             password: data.password,
-            role: 'customer'
+            role: 'customer',
+            phone: data.phonenum
         }
         console.log("before createAccount");
         this.auth.createAccount(details).then((res) => {

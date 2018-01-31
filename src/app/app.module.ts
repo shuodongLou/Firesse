@@ -12,32 +12,41 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthProvider } from '../providers/auth/auth';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
+import { MultiPickerModule } from 'ion-multi-picker';
+import { ReceiptinfoPage } from '../pages/receiptinfo/receiptinfo';
+import { AddressProvider } from '../providers/address/address';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    AgentPage
+    AgentPage,
+    ReceiptinfoPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicModule.forRoot(MyApp, {
+      backButtonText: ''
+    }),
+    IonicStorageModule.forRoot(),
+    MultiPickerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     ListPage,
-    AgentPage
+    AgentPage,
+    ReceiptinfoPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    AddressProvider
   ]
 })
 export class AppModule {

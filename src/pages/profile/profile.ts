@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, ModalController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Storage } from '@ionic/storage';
+import { ReceiptinfoPage } from '../receiptinfo/receiptinfo';
 
 /**
  * Generated class for the ProfilePage page.
@@ -17,12 +18,19 @@ import { Storage } from '@ionic/storage';
 })
 export class ProfilePage {
 
-  public date='2000-01-10'
-  public accountDetails: any
-  public user: any
+  public date: any;
+  public accountDetails: any;
+  public user: any;
+  public sex: any;
+  public phone: any;
+  public name: any;
+  public address: any;
+  public province: any;
+  public city: any;
+  public county: any;
 
   constructor(public navCtrl: NavController,
-              public modelCtrl: ModalController,
+              public modalCtrl: ModalController,
               public auth: AuthProvider,
               public storage: Storage) {
 
@@ -31,6 +39,7 @@ export class ProfilePage {
       console.log(res);
       this.user = res['user'];
       this.date = res['birthday'];
+      this.sex = res['sex'];
       console.log(this.user);
     }, (err) => {
       console.log("failed to get account details...");
@@ -38,7 +47,9 @@ export class ProfilePage {
   }
 
   presentAddressModal() {
-    console.log('something');
+    console.log('in presentAddressModal()');
+    let modal = this.modalCtrl.create(ReceiptinfoPage);
+    modal.present();
   }
 
   updateBirthday() {
@@ -58,7 +69,24 @@ export class ProfilePage {
         console.log('failed update in profile...');
       });
     });
+  }
 
+  updateSex() {
+    console.log('sex updating...');
+    console.log(this.sex);
+    this.storage.get('role').then((value) => {
+
+      let details = {
+        sex: this.sex,
+        role: value,
+        user: this.user
+      }
+      this.auth.updateAccountDetails(details).then((res) => {
+        console.log("updated in profile...");
+      }, (err) => {
+        console.log('failed update in profile...');
+      });
+    });
   }
 
   ionViewDidLoad() {

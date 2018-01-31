@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="dark">
     <ion-title>个人信息</ion-title>
   </ion-navbar>
 
@@ -14,18 +14,27 @@
 
 
 <ion-content padding>
-  <ion-list>
-    <a ion-item (click)="presentAddressModal()">
-      <ion-label>收货信息</ion-label>
-    </a>
-    <ion-item>
-      <ion-label>生日</ion-label>
-      <ion-datetime displayFormat="YYYY MMM DD"
-        monthShortNames="01月, 02月, 03月, 04月, 05月, 06月, 07月, 08月, 09月, 10月, 11月, 12月"
-        (ionChange)="updateBirthday()" [(ngModel)]="date"
-        cancelText="取消" doneText="确定">
-      </ion-datetime>
-    </ion-item>
-  </ion-list>
+  <ion-card>
+    <ion-list>
+      <a ion-item detail-push (click)="presentAddressModal()">
+        <ion-label>收货信息</ion-label>
+      </a>
+      <ion-item>
+        <ion-label>性别</ion-label>
+        <ion-select [(ngModel)]="sex" okText="确定" cancelText="取消" (ionChange)="updateSex()">
+          <ion-option value="F">女</ion-option>
+          <ion-option value="M">男</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>生日</ion-label>
+        <ion-datetime displayFormat="YYYY MMM DD"
+          monthShortNames="01月, 02月, 03月, 04月, 05月, 06月, 07月, 08月, 09月, 10月, 11月, 12月"
+          (ionChange)="updateBirthday()" [(ngModel)]="date"
+          cancelText="取消" doneText="确定">
+        </ion-datetime>
+      </ion-item>
+    </ion-list>
+  </ion-card>
 
 </ion-content>

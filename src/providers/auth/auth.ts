@@ -20,38 +20,6 @@ export class AuthProvider {
   constructor(public http: HttpClient, public storage: Storage) {
   }
 
-/*
-  checkAuthentication() {
-    console.log("in checkAuthentication");
-    return new Promise((resolve, reject) => {
-      console.log("before storage.get");
-      this.storage.get('token').then((value) => {
-        console.log("in storage.get");
-        if (value == null) {
-          console.log("value is null...");
-          this.token = "jdsf023jioj09fdsjj3k12j9";
-        } else {
-          this.token = value;
-        }
-        console.log("before let headers");
-        let headers = new HttpHeaders().set("Authorization", "Token "+this.token);
-        console.log("before headers.append");
-        //headers.append('Authorization: Token ', this.token);
-
-        console.log("before sending GET");
-        this.http.get('http://localhost:8000/protected_auth/', {headers})
-          .subscribe(res => {
-            resolve(res);
-            console.log("resolving res...");
-          }, (err) => {
-            reject(err);
-            console.log("rejecting err...");
-          });
-      });
-    });
-  }
-*/
-
   createAccount(details){
       return new Promise((resolve, reject) => {
           let headers = new HttpHeaders().set('Content-Type', 'application/json');
