@@ -1,11 +1,8 @@
 <ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <ion-content>
+    <div class="spacer" style="width:268px;height:21px;" id="menu-spacer1"></div>
+    <img src="assets/img/SaVy88aWQqOAMfOxEdGR_daniel-frank-201417.jpg" style="display:block;width:100%;height:auto;margin-left:auto;margin-right:auto;" />
+    <div class="spacer" style="width:268px;height:21px;" id="menu-spacer2"></div>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}

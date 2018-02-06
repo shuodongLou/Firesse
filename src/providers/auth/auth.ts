@@ -23,7 +23,7 @@ export class AuthProvider {
   createAccount(details){
       return new Promise((resolve, reject) => {
           let headers = new HttpHeaders().set('Content-Type', 'application/json');
-          this.http.post('http://localhost:8000/create_account/', JSON.stringify(details), {headers})
+          this.http.post('http://192.168.0.102:8000/create_account/', JSON.stringify(details), {headers})
               .subscribe(res => {
                   console.log(res);
                   resolve(res);
@@ -36,7 +36,7 @@ export class AuthProvider {
   login(credentials){
       return new Promise((resolve, reject) => {
           let headers = new HttpHeaders().set('Content-Type', 'application/json');
-          this.http.post('http://localhost:8000/custom-token-auth/', JSON.stringify(credentials), {headers})
+          this.http.post('http://192.168.0.102:8000/custom-token-auth/', JSON.stringify(credentials), {headers})
               .subscribe(res => {
                   console.log(res);
                   this.storage.set('token', res['token']);
@@ -72,7 +72,7 @@ export class AuthProvider {
         this.storage.get('pk').then((value) => {
           let pk = value;
           console.log('pk: ', pk);
-          this.http.get('http://localhost:8000/accounts/' + pk, {headers})
+          this.http.get('http://192.168.0.102:8000/accounts/' + pk, {headers})
               .subscribe(res => {
                   console.log('got the res obj');
                   resolve(res);
@@ -96,7 +96,7 @@ export class AuthProvider {
         console.log(headers.getAll('Authorization'));
         this.storage.get('pk').then((value) => {
           let pk = value;
-          this.http.put('http://localhost:8000/accounts/' + pk, JSON.stringify(details), {headers})
+          this.http.put('http://192.168.0.102:8000/accounts/' + pk, JSON.stringify(details), {headers})
             .subscribe(res => {
               console.log('updated successfully - res: ', res);
               resolve(res);
@@ -105,6 +105,23 @@ export class AuthProvider {
               reject(err);
             });
         });
+      });
+    });
+  }
+
+  uploadImg(photoReq) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
+        this.http.post('http://192.168.0.102:8000/storeimg/', JSON.stringify(photoReq), {headers})
+          .subscribe(res => {
+            console.log('image uploaded successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('image upload failed... err: ', err);
+            reject(err);
+          });
       });
     });
   }
