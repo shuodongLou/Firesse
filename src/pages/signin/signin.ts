@@ -54,7 +54,8 @@ export class SigninPage {
           console.log("Logged in...");
           console.log(res);
           loading.dismiss();
-          this.navCtrl.setRoot(HomePage);
+          this.navCtrl.pop();
+          //this.navCtrl.setRoot(HomePage);
       }, (err) => {
           console.log("Not logged in...");
           loading.dismiss();
@@ -65,6 +66,10 @@ export class SigninPage {
   isLogged(): boolean {
     console.log('isLogged() called, returned: ', this.auth.isLoggedIn);
     return this.auth.isLoggedIn;
+  }
+
+  gotoSignup() {
+    this.navCtrl.push('SignupPage');
   }
 
   ionViewDidLoad() {

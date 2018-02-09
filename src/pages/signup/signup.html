@@ -21,8 +21,8 @@
       <ion-input formControlName="phonenum" type="tel" [class.invalid]="!authForm.controls.phonenum.valid && authForm.controls.phonenum.touched"></ion-input>
     </ion-item>
 
-    <ion-item  color="danger" *ngIf="!authForm.controls.phonenum.valid && authForm.controls.phonenum.touched">
-      <p>抱歉，请输入有效的电话号码！</p>
+    <ion-item *ngIf="!authForm.controls.phonenum.valid && authForm.controls.phonenum.touched">
+      <p ion-text color="danger">抱歉，请输入有效的电话号码！</p>
     </ion-item>
 
     <ion-item>
@@ -30,12 +30,21 @@
       <ion-input formControlName="password" type="password" [class.invalid]="!authForm.controls.password.valid && authForm.controls.password.touched"></ion-input>
     </ion-item>
 
-    <ion-item color="danger" *ngIf="!authForm.controls.password.valid && authForm.controls.password.touched">
-      <p>抱歉，请您输入有效格式密码！（最少8位）</p>
+    <ion-item *ngIf="!authForm.controls.password.valid && authForm.controls.password.touched">
+      <p ion-text color="danger">抱歉，请您输入有效格式密码！（最少8位）</p>
     </ion-item>
 
 
-    <button ion-button full color="primary" [disabled]="!authForm.valid" style="margin-top: 20px;" type="submit">一键注册并登陆</button>
+    <button ion-button full round color="primary" [disabled]="!authForm.valid" style="margin-top: 20px;" type="submit">一键注册并登陆</button>
   </form>
+
+  <ion-item *ngIf="failFlagCreate">
+    <p ion-text color="danger">您的手机号已被注册！或注册后登录不成功！</p>
+    <p ion-text color='danger'>请联系燃族族长。</p>
+  </ion-item>
+
+  <ion-item no-lines>
+    <button ion-button item-right small round outline color='primary' (click)="gotoLogin()">已有账号 登录</button>
+  </ion-item>
 
 </ion-content>

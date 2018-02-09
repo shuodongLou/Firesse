@@ -37,8 +37,12 @@
       <p ion-text color="danger">手机号/密码组合错误，请检查后重新输入！</p>
     </ion-item>
 
-    <button ion-button full color="primary" [disabled]="!authForm.valid" style="margin-top: 20px;" type="submit">登录</button>
+    <button ion-button full round color="primary" [disabled]="!authForm.valid" style="margin-top: 20px;" type="submit">登录</button>
   </form>
 
+  <ion-item no-lines>
+    <button ion-button item-right small round outline color='primary' (click)="gotoSignup()">注册</button>
+    <button ion-button item-left small round outline color='primary'>忘记密码</button>
+  </ion-item>
 
 </ion-content>

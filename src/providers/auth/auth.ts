@@ -41,10 +41,9 @@ export class AuthProvider {
                   console.log(res);
                   this.storage.set('token', res['token']);
                   this.storage.set('role', res['role']);
+                  console.log('role set: ', res['role']);
                   this.storage.set('pk', res['pk']);
                   this.isLoggedIn = true;
-                  //this.role = res['role'];
-                  //this.pk = res['pk'];
                   console.log("after storage.set()");
 
                   resolve(res);

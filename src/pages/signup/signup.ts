@@ -20,6 +20,7 @@ import { HomePage } from '../home/home';
 export class SignupPage {
 
     authForm: FormGroup;
+    failFlagCreate: boolean = false;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -32,6 +33,8 @@ export class SignupPage {
         });
 
     }
+
+
 
     onSubmit(data) {
         console.log('before this.loading...');
@@ -48,24 +51,31 @@ export class SignupPage {
             phone: data.phonenum
         }
         console.log("before createAccount");
+
         this.auth.createAccount(details).then((res) => {
             console.log("Already authorised...");
-            loading.dismiss();
-        }, (err) => {
-            console.log("Not authorized...");
-            loading.dismiss();
+
         }).then(() => {
             this.auth.login(details).then((res) => {
                 console.log("Logged in...");
                 console.log(res);
-
-                this.navCtrl.setRoot(HomePage);
-            }, (err) => {
-                console.log("Not logged in...");
+                loading.dismiss();
+                this.navCtrl.pop();
+                //this.navCtrl.setRoot(HomePage);
 
             });
+        }).catch((step) => {
+          console.log('error catched');
+          this.failFlagCreate = true;
+          loading.dismiss();
         });
 
+    }
+
+
+    gotoLogin() {
+      console.log('goto');
+      this.navCtrl.push('SigninPage');
     }
 
     ionViewDidLoad() {

@@ -1,5 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NavController, AlertController, NavParams, LoadingController, Loading } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, AlertController, NavParams } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Storage } from '@ionic/storage';
 
@@ -10,25 +10,16 @@ import { Storage } from '@ionic/storage';
 })
 export class HomePage {
 
-  //Camera code begin #1
-  @ViewChild('inputcamera') cameraInput: ElementRef;
-
-  @ViewChild('imgresult') imgResult: ElementRef;
-
-  img = '';
-
-  displayCard() {
-    return this.img !== '';
-  }
-  //camera code end #1
+  role: any;
 
   constructor(public navCtrl: NavController,
               public storage: Storage,
               public alertCtrl: AlertController,
               public navParams: NavParams,
-              private loadingCtrl: LoadingController,
               public auth: AuthProvider) {
   }
+
+
 
   gotoSignup() {
     this.navCtrl.push("SignupPage");
@@ -39,75 +30,33 @@ export class HomePage {
   gotoProfile() {
     this.navCtrl.push("ProfilePage");
   }
-
-  //camera code begin #2
-  loading = (() => {
-    let loadMessage: Loading;
-
-    return {
-      turnOn: () => {
-        loadMessage = this.loadingCtrl.create({
-          content: 'Please Wait, doing something awesome'
-        });
-        loadMessage.present();
-      },
-      turnOff: () => loadMessage.dismiss()
-    };
-
-  })();
-  //camera code end #2
-
-  ionViewDidLoad() {
-    //camera code begin #3
-    //MY BIT
-    const element = this.cameraInput.nativeElement as HTMLInputElement;
-    element.onchange = () => {
-
-      this.loading.turnOn();
-
-      const reader = new FileReader();
-
-      reader.onload = (r: any) => {
-
-        //THIS IS THE ORIGINAL BASE64 STRING AS SNAPPED FROM THE CAMERA
-        //THIS IS PROBABLY THE ONE TO UPLOAD BACK TO YOUR DB AS IT'S UNALTERED
-        //UP TO YOU, NOT REALLY BOTHERED
-        let base64 = r.target.result as string;
-
-        /*
-        //FIXING ORIENTATION USING NPM PLUGIN fix-orientation
-        fixOrientation(base64, { image: true }, (fixed: string, image: any) => {
-          //fixed IS THE NEW VERSION FOR DISPLAY PURPOSES
-          this.img = fixed;
-
-          this.loading.turnOff();
-        });
-        */
-
-        this.img = base64;
-        this.loading.turnOff();
-
-      };
-
-      reader.readAsDataURL(element.files[0]);
-    };
-    //camera code end #3
-
-    console.log("HomePage loaded...");
+  gotoPhoto() {
+    this.navCtrl.push("PhotoPage");
   }
 
-  upload() {
-    this.storage.get('pk').then((value) => {
-      let photoReq = {
-        'photo': this.img,
-        'account': value
-      };
-      this.auth.uploadImg(photoReq).then((res) => {
-        console.log('image uploaded successfully...');
-      }, (err) => {
-        console.log('image upload failed... err: ', err);
-      });
+  startJourney() {
+    if (this.auth.isLoggedIn) {
+      this.navCtrl.push("PhotoPage");
+    } else {
+      this.navCtrl.push("SigninPage");
+    }
+  }
+
+  isAdminLogged() {
+    if (this.role == 'admin' && this.auth.isLoggedIn) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  ionViewDidLoad() {
+    this.storage.get('role').then((value) => {
+      this.role = value;
+      console.log('the role of current logged in user: ', this.role);
     });
+
+    console.log("HomePage loaded...");
   }
 
   logoutAlert() {
