@@ -1,0 +1,216 @@
+<!--
+  Generated template for the InquiryreplyPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="danger">
+    <ion-title>诊断/回复</ion-title>
+    <ion-buttons left>
+      <button ion-button color="bright" clear (click)="dismiss()">
+        返回
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card>
+    <ion-card-header>
+      <h2 ion-text>{{timestamp}}</h2>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let pathname of photopaths">
+          <img [src]=pathname style="width:30%; height:30%" (click)="displayImage(pathname)"/>
+        </ion-item>
+      </ion-list>
+      <p ion-text>{{note}}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      填写诊断结果
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>过敏型</ion-label>
+          <ion-toggle checked='false' [(ngModel)]="typeA" (ionChange)="typeAChange()"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label>激素</ion-label>
+          <ion-checkbox color='secondary' [disabled]="!typeA" checked='false' [(ngModel)]='subtypeA1' (ionChange)='subtypeChange()'></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf='subtypeA1'>
+          <ion-range min='0' max='10' step='1' snaps='true' pin='true' color='danger' [(ngModel)]='a1Range'>
+            <ion-icon range-left small name='alert' color='danger'></ion-icon>
+            <ion-icon range-right name='alert' color='danger'></ion-icon>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-label>抗生素</ion-label>
+          <ion-checkbox color='secondary' [disabled]="!typeA" checked='false' [(ngModel)]='subtypeA2' (ionChange)='subtypeChange()'></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf='subtypeA2'>
+          <ion-range min='0' max='10' step='1' snaps='true' pin='true' color='danger' [(ngModel)]='a2Range'>
+            <ion-icon range-left small name='alert' color='danger'></ion-icon>
+            <ion-icon range-right name='alert' color='danger'></ion-icon>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-label>食物过敏</ion-label>
+          <ion-checkbox color='secondary' [disabled]="!typeA" checked='false' [(ngModel)]='subtypeA3'></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf='subtypeA3'>
+          <ion-range min='0' max='10' step='1' snaps='true' pin='true' color='danger' [(ngModel)]='a3Range'>
+            <ion-icon range-left small name='alert' color='danger'></ion-icon>
+            <ion-icon range-right name='alert' color='danger'></ion-icon>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-label>闭合粉刺</ion-label>
+          <ion-toggle checked='false' [(ngModel)]='typeB' (ionChange)='typeBChange()'></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label>丘疹类</ion-label>
+          <ion-checkbox color='secondary' [disabled]='!typeB' checked='false' [(ngModel)]='subtypeB1'></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf='subtypeB1'>
+          <ion-range min='0' max='10' step='1' snaps='true' pin='true' color='danger' [(ngModel)]='b1Range'>
+            <ion-icon range-left small name='alert' color='danger'></ion-icon>
+            <ion-icon range-right name='alert' color='danger'></ion-icon>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-label>黑头类</ion-label>
+          <ion-checkbox color='secondary' [disabled]='!typeB' checked='false' [(ngModel)]='subtypeB2'></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf='subtypeB2'>
+          <ion-range min='0' max='10' step='1' snaps='true' pin='true' color='danger' [(ngModel)]='b2Range'>
+            <ion-icon range-left small name='alert' color='danger'></ion-icon>
+            <ion-icon range-right name='alert' color='danger'></ion-icon>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-label>白头类</ion-label>
+          <ion-checkbox color='secondary' [disabled]='!typeB' checked='false' [(ngModel)]='subtypeB3'></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf='subtypeB3'>
+          <ion-range min='0' max='10' step='1' snaps='true' pin='true' color='danger' [(ngModel)]='b3Range'>
+            <ion-icon range-left small name='alert' color='danger'></ion-icon>
+            <ion-icon range-right name='alert' color='danger'></ion-icon>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-label>脓包型</ion-label>
+          <ion-toggle checked='false' [(ngModel)]='typeC' (ionChange)='typeCChange()'></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label>囊肿类</ion-label>
+          <ion-checkbox color='secondary' [disabled]='!typeC' checked='false' [(ngModel)]='subtypeC1'></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf='subtypeC1'>
+          <ion-range min='0' max='10' step='1' snaps='true' pin='true' color='danger' [(ngModel)]='c1Range'>
+            <ion-icon range-left small name='alert' color='danger'></ion-icon>
+            <ion-icon range-right name='alert' color='danger'></ion-icon>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-label>结节类</ion-label>
+          <ion-checkbox color='secondary' [disabled]='!typeC' checked='false' [(ngModel)]='subtypeC2'></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf='subtypeC2'>
+          <ion-range min='0' max='10' step='1' snaps='true' pin='true' color='danger' [(ngModel)]='c2Range'>
+            <ion-icon range-left small name='alert' color='danger'></ion-icon>
+            <ion-icon range-right name='alert' color='danger'></ion-icon>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-label>混合类</ion-label>
+          <ion-checkbox color='secondary' [disabled]='!typeC' checked='false' [(ngModel)]='subtypeC3'></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf='subtypeC3'>
+          <ion-range min='0' max='10' step='1' snaps='true' pin='true' color='danger' [(ngModel)]='c3Range'>
+            <ion-icon range-left small name='alert' color='danger'></ion-icon>
+            <ion-icon range-right name='alert' color='danger'></ion-icon>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-label>疤痕型</ion-label>
+          <ion-toggle checked='false' [(ngModel)]='typeD' (ionChange)='typeDChange()'></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label>痘印</ion-label>
+          <ion-checkbox color='secondary' [disabled]='!typeD' checked='false' [(ngModel)]='subtypeD1'></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf='subtypeD1'>
+          <ion-range min='0' max='10' step='1' snaps='true' pin='true' color='danger' [(ngModel)]='d1Range'>
+            <ion-icon range-left small name='alert' color='danger'></ion-icon>
+            <ion-icon range-right name='alert' color='danger'></ion-icon>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-label>痘疤</ion-label>
+          <ion-checkbox color='secondary' [disabled]='!typeD' checked='false' [(ngModel)]='subtypeD2'></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf='subtypeD2'>
+          <ion-range min='0' max='10' step='1' snaps='true' pin='true' color='danger' [(ngModel)]='d2Range'>
+            <ion-icon range-left small name='alert' color='danger'></ion-icon>
+            <ion-icon range-right name='alert' color='danger'></ion-icon>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-label>增生性结节类</ion-label>
+          <ion-checkbox color='secondary' [disabled]='!typeD' checked='false' [(ngModel)]='subtypeD3'></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf='subtypeD3'>
+          <ion-range min='0' max='10' step='1' snaps='true' pin='true' color='danger' [(ngModel)]='d3Range'>
+            <ion-icon range-left small name='alert' color='danger'></ion-icon>
+            <ion-icon range-right name='alert' color='danger'></ion-icon>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-label>病理型</ion-label>
+          <ion-toggle checked='false' [(ngModel)]='typeE' (ionChange)='typeEChange()'></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label>毛囊炎</ion-label>
+          <ion-checkbox color='secondary' [disabled]='!typeE' checked='false' [(ngModel)]='subtypeE1'></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf='subtypeE1'>
+          <ion-range min='0' max='10' step='1' snaps='true' pin='true' color='danger' [(ngModel)]='e1Range'>
+            <ion-icon range-left small name='alert' color='danger'></ion-icon>
+            <ion-icon range-right name='alert' color='danger'></ion-icon>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-label>其他皮肤病</ion-label>
+          <ion-checkbox color='secondary' [disabled]='!typeE' checked='false' [(ngModel)]='subtypeE2'></ion-checkbox>
+        </ion-item>
+        <ion-item *ngIf='subtypeE2'>
+          <ion-range min='0' max='10' step='1' snaps='true' pin='true' color='danger' [(ngModel)]='e2Range'>
+            <ion-icon range-left small name='alert' color='danger'></ion-icon>
+            <ion-icon range-right name='alert' color='danger'></ion-icon>
+          </ion-range>
+        </ion-item>
+        <ion-item>
+          <ion-label>额外备注/建议</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-textarea rows='4' [(ngModel)]='replyNote' placeholder='就病情本身的专业分析/建议'></ion-textarea>
+        </ion-item>
+      </ion-list>
+      <button ion-button full round (click)='submitReply()'>
+        提交诊断回复
+      </button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

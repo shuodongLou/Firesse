@@ -14,13 +14,17 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MultiPickerModule } from 'ion-multi-picker';
 import { ReceiptinfoPage } from '../pages/receiptinfo/receiptinfo';
 import { AddressProvider } from '../providers/address/address';
+import { InquirydetailPage } from '../pages/inquirydetail/inquirydetail';
+import { InquiryreplyPage } from '../pages/inquiryreply/inquiryreply';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     AgentPage,
-    ReceiptinfoPage
+    ReceiptinfoPage,
+    InquirydetailPage,
+    InquiryreplyPage
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,9 @@ import { AddressProvider } from '../providers/address/address';
     MyApp,
     HomePage,
     AgentPage,
-    ReceiptinfoPage
+    ReceiptinfoPage,
+    InquirydetailPage,
+    InquiryreplyPage
   ],
   providers: [
     StatusBar,

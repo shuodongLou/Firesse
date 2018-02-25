@@ -39,7 +39,7 @@ export class SignupPage {
     onSubmit(data) {
         console.log('before this.loading...');
         let loading = this.loadingCtrl.create({
-          content: '注册中...'
+          content: '注册并登陆中...'
         });
         console.log('after create');
         loading.present();
@@ -60,9 +60,7 @@ export class SignupPage {
                 console.log("Logged in...");
                 console.log(res);
                 loading.dismiss();
-                this.navCtrl.pop();
-                //this.navCtrl.setRoot(HomePage);
-
+                this.navCtrl.setRoot(HomePage);
             });
         }).catch((step) => {
           console.log('error catched');

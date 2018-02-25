@@ -16,9 +16,9 @@
 <ion-content padding>
   <ion-card>
     <ion-list>
-      <a ion-item detail-push (click)="presentAddressModal()">
-        <ion-label>收货信息</ion-label>
-      </a>
+      <button ion-item (click)="presentAddressModal()">
+        收货信息
+      </button>
       <ion-item>
         <ion-label>性别</ion-label>
         <ion-select [(ngModel)]="sex" okText="确定" cancelText="取消" (ionChange)="updateSex()">
@@ -35,6 +35,12 @@
         </ion-datetime>
       </ion-item>
     </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <button ion-item (click)="gotoInquiries()">
+      我的问诊
+    </button>
   </ion-card>
 
 </ion-content>

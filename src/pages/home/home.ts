@@ -11,6 +11,7 @@ import { Storage } from '@ionic/storage';
 export class HomePage {
 
   role: any;
+  isLoggedIn: boolean;
 
   constructor(public navCtrl: NavController,
               public storage: Storage,
@@ -33,9 +34,12 @@ export class HomePage {
   gotoPhoto() {
     this.navCtrl.push("PhotoPage");
   }
+  gotoAdmin() {
+    this.navCtrl.push("AdminPage");
+  }
 
   startJourney() {
-    if (this.auth.isLoggedIn) {
+    if (this.isLoggedIn) {
       this.navCtrl.push("PhotoPage");
     } else {
       this.navCtrl.push("SigninPage");
@@ -43,20 +47,30 @@ export class HomePage {
   }
 
   isAdminLogged() {
-    if (this.role == 'admin' && this.auth.isLoggedIn) {
+    if (this.role == 'admin' && this.isLoggedIn) {
+      //console.log('admin logged in...');
       return true;
     } else {
       return false;
     }
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     this.storage.get('role').then((value) => {
       this.role = value;
-      console.log('the role of current logged in user: ', this.role);
+      //console.log('the role of currently logged in user: ', this.role, value);
+    }).catch((err) => {
+      console.log('err occurred - ionViewWillEnter - storage.get(): ', err);
     });
 
-    console.log("HomePage loaded...");
+    this.storage.get('isLoggedIn').then((value) => {
+      this.isLoggedIn = value;
+      console.log('logged in? : ', this.isLoggedIn);
+    }).catch((err) => {
+      console.log('err occurred - ionViewWillEnter - storage.get(): ', err);
+    });
+
+    console.log("HomePage ionViewWillEnter is called...");
   }
 
   logoutAlert() {
@@ -81,9 +95,5 @@ export class HomePage {
     alert.present();
   }
 
-  checkLogin(): boolean {
-    console.log('checkLogin() called...');
-    return this.auth.isLoggedIn;
-  }
 
 }

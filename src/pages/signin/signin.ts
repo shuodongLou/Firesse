@@ -54,19 +54,15 @@ export class SigninPage {
           console.log("Logged in...");
           console.log(res);
           loading.dismiss();
-          this.navCtrl.pop();
-          //this.navCtrl.setRoot(HomePage);
-      }, (err) => {
-          console.log("Not logged in...");
+          //this.navCtrl.pop();
+          this.navCtrl.setRoot(HomePage);
+      }).catch((err) => {
+          console.log("Not logged in... err: ", err);
           loading.dismiss();
           this.failedLoggin = true;
       });
   }
 
-  isLogged(): boolean {
-    console.log('isLogged() called, returned: ', this.auth.isLoggedIn);
-    return this.auth.isLoggedIn;
-  }
 
   gotoSignup() {
     this.navCtrl.push('SignupPage');

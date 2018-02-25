@@ -18,6 +18,9 @@ import { ReceiptinfoPage } from '../receiptinfo/receiptinfo';
 })
 export class ProfilePage {
 
+  public role: any;
+  public pk: any;
+
   public date: any;
   public accountDetails: any;
   public user: any;
@@ -41,8 +44,8 @@ export class ProfilePage {
       this.date = res['birthday'];
       this.sex = res['sex'];
       console.log(this.user);
-    }, (err) => {
-      console.log("failed to get account details...");
+    }).catch((err) => {
+      console.log('profile.ts - retrieveAccountDetails - err: ', err);
     });
   }
 
@@ -56,11 +59,11 @@ export class ProfilePage {
     console.log('birthday updating...');
     console.log(this.date);
     let isoDate = this.date;
-    this.storage.get('role').then((value) => {
+
 
       let details = {
         birthday: isoDate,
-        role: value,
+        role: this.role,
         user: this.user
       }
       this.auth.updateAccountDetails(details).then((res) => {
@@ -68,17 +71,16 @@ export class ProfilePage {
       }, (err) => {
         console.log('failed update in profile...');
       });
-    });
+
   }
 
   updateSex() {
     console.log('sex updating...');
     console.log(this.sex);
-    this.storage.get('role').then((value) => {
 
       let details = {
         sex: this.sex,
-        role: value,
+        role: this.role,
         user: this.user
       }
       this.auth.updateAccountDetails(details).then((res) => {
@@ -86,9 +88,21 @@ export class ProfilePage {
       }, (err) => {
         console.log('failed update in profile...');
       });
-    });
+
   }
 
+  gotoInquiries() {
+    this.navCtrl.push("InquiryPage", { 'acc_id': this.pk });
+  }
+
+  ionViewWillEnter() {
+    this.storage.get('role').then((value) => {
+      this.role = value;
+    });
+    this.storage.get('pk').then((value) => {
+      this.pk = value;
+    })
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
   }

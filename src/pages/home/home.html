@@ -5,19 +5,19 @@
     </button>
     <ion-title item-left>FIRESSE</ion-title>
     <ion-buttons end *ngIf=isAdminLogged()>
-      <button ion-button small block>
+      <button ion-button small block (click)="gotoAdmin()">
         <ion-icon name="settings"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-buttons end *ngIf=!this.auth.isLoggedIn>
-      <button ion-button small (click)="gotoSignin()">
+    <ion-buttons end *ngIf=!this.isLoggedIn>
+      <button ion-button large (click)="gotoSignin()">
         <ion-icon name="person"></ion-icon>
       </button>
-      <button ion-button small outline color='bright' (click)="gotoSignup()">
+      <button ion-button large outline color='bright' (click)="gotoSignup()">
         <ion-icon name="person-add"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-buttons end *ngIf=this.auth.isLoggedIn>
+    <ion-buttons end *ngIf=this.isLoggedIn>
       <button ion-button icon-start small color="light" (click)="gotoProfile()">
         <ion-icon name="contact"></ion-icon>
       </button>

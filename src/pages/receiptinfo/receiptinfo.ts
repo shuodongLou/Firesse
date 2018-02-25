@@ -18,6 +18,8 @@ import { AuthProvider } from '../../providers/auth/auth';
 })
 export class ReceiptinfoPage {
 
+  public role:any;
+
   public addressColumns: any;
   public currentAddress='';
   public name='';
@@ -51,8 +53,8 @@ export class ReceiptinfoPage {
       this.city = res['city'];
       this.county = res['county'];
       this.currentAddress = this.province + ' ' + this.city + ' ' + this.county;
-    }, (err) => {
-      console.log("failed to get account details...");
+    }).catch((err) => {
+      console.log('receiptinfo.ts - retrieveAccountDetails - err: ', err);
     });
     console.log('currentAddress: ', this.currentAddress);
   }
@@ -68,10 +70,9 @@ export class ReceiptinfoPage {
   }
 
   updateReceiptinfo() {
-    this.storage.get('role').then((value) => {
 
       let details = {
-        role: value,
+        role: this.role,
         user: this.user,
         province: this.province,
         city: this.city,
@@ -83,10 +84,10 @@ export class ReceiptinfoPage {
       this.auth.updateAccountDetails(details).then((res) => {
         console.log("updated in profile...");
         this.viewCtrl.dismiss();
-      }, (err) => {
-        console.log('failed update in profile...');
+      }).catch((err) => {
+        console.log('ERR: receiptinfo.ts - updateAccountDetails - err: ', err);
       });
-    });
+
   }
 
   iscomplete() {
@@ -97,6 +98,11 @@ export class ReceiptinfoPage {
     }
   }
 
+  ionViewWillEnter() {
+    this.storage.get('role').then((value) => {
+      this.role = value;
+    });
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReceiptinfoPage');
   }

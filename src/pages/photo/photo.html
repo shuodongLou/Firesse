@@ -7,34 +7,41 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>图像诊断申请</ion-title>
+    <ion-title>发起问诊</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-item no-lines>
-    <input #inputcamera type="file" name="file" id="file" accept="image/*" capture="camera"/>
-    <label for="file">
-      <ion-icon name='camera' style='zoom:4.0;'></ion-icon>
-    </label>
-  </ion-item>
-
-  <ion-card *ngIf="displayCard();">
-    <ion-item *ngFor="let photo of img">
-      <img #imgresult [src]="photo"/>
+  <ion-card>
+    <ion-item no-lines>
+      <input #inputcamera type="file" name="file" id="file" accept="image/*" capture="camera"/>
+      <label for="file">
+        <ion-icon name='add' style='zoom:4.0;'></ion-icon>
+      </label>
     </ion-item>
 
-    <ion-card-content>
-      <h3>
-        为了准确的诊断，请卸妆后拍摄。
-      </h3>
-      <button ion-button icon-start block color='primary' (click)='upload()'>
+
+    <ion-list no-lines *ngIf="displayCard()">
+      <ion-item *ngFor="let photo of img">
+        <img item-left [src]="photo" style="width:30%; height:30%" (click)="displayImage(photo)"/>
+
+        <button ion-button clear large icon-only item-right color="dark" (click)="remove(photo)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item>
+      <ion-item>
+        <h3>
+          有附加问题可以填写在框框中哦（选填）
+        </h3>
+        <textarea rows='5' [(ngModel)]='note'></textarea>
+        <button ion-button icon-start block round color='primary' (click)='upload()'>
         <ion-icon name='cloud-upload'></ion-icon>
-        确认并上传
-      </button>
-    </ion-card-content>
+          提交
+        </button>
+      </ion-item>
+    </ion-list>
   </ion-card>
 
 </ion-content>
