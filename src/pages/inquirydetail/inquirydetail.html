@@ -19,8 +19,37 @@
 
 
 <ion-content padding>
+  <ion-item *ngIf='status'>
+    <canvas baseChart
+      [datasets]="radarChartData"
+      [labels]="radarChartLabels"
+      [chartType]="radarChartType"
+      [options]="radarOptions"
+      (chartHover)="chartHovered($event)"
+      (chartClick)="chartClicked($event)">
+    </canvas>
+  </ion-item>
+
   <ion-card>
-    <p ion-text style="font-size: 16px;">{{reply}}</p>
+    <ion-list>
+      <ion-item>
+        <p ion-text style="font-size: 18px;">附加提问</p>
+      </ion-item>
+      <ion-item>
+        <p ion-text style="font-size: 16px;">{{note}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <p ion-text style="font-size: 18px;">回复</p>
+      </ion-item>
+      <ion-item>
+        <p ion-text style="font-size: 16px;">{{reply}}</p>
+      </ion-item>
+    </ion-list>
   </ion-card>
 
 </ion-content>

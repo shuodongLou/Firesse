@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, PopoverController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, PopoverController, AlertController, LoadingController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Storage } from '@ionic/storage';
 
@@ -66,8 +66,13 @@ export class InquiryreplyPage {
               public auth: AuthProvider,
               public popoverCtrl: PopoverController,
               public alertCtrl: AlertController,
+              public loading: LoadingController,
               public storage: Storage,
               public viewCtrl: ViewController) {
+    let loading = this.loading.create({
+      content: '载入中...'
+    });
+    loading.present();
     let obj = this.navParams.get('obj');
     console.log('in reply: ', obj);
     this.note = obj['note'];
@@ -113,11 +118,31 @@ export class InquiryreplyPage {
     this.d3Range = 0;
     this.e1Range = 0;
     this.e2Range = 0;
+
+    loading.dismiss();
   }
 
   dismiss() {
-    this.viewCtrl.dismiss();
+    let alert = this.alertCtrl.create({
+      message: '确定取消此次回复吗？',
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+        },
+        {
+          text: '确定',
+          handler: () => {
+            console.log('confirmed...');
+            this.viewCtrl.dismiss();
+          }
+        }
+      ]
+    });
+    console.log('after alert');
+    alert.present();
   }
+
 
   displayImage(photo) {
     console.log('image clicked...');
@@ -238,6 +263,20 @@ export class InquiryreplyPage {
     this.replyReq['reqObj']['reply'] = replyText;
     this.replyReq['reqObj']['status'] = true;
     this.replyReq['reqObj']['account'] = this.acc_id;
+    this.replyReq['reqObj']['subtypea1'] = this.a1Range;
+    this.replyReq['reqObj']['subtypea2'] = this.a2Range;
+    this.replyReq['reqObj']['subtypea3'] = this.a3Range;
+    this.replyReq['reqObj']['subtypeb1'] = this.b1Range;
+    this.replyReq['reqObj']['subtypeb2'] = this.b2Range;
+    this.replyReq['reqObj']['subtypeb3'] = this.b3Range;
+    this.replyReq['reqObj']['subtypec1'] = this.c1Range;
+    this.replyReq['reqObj']['subtypec2'] = this.c2Range;
+    this.replyReq['reqObj']['subtypec3'] = this.c3Range;
+    this.replyReq['reqObj']['subtyped1'] = this.d1Range;
+    this.replyReq['reqObj']['subtyped2'] = this.d2Range;
+    this.replyReq['reqObj']['subtyped3'] = this.d3Range;
+    this.replyReq['reqObj']['subtypee1'] = this.e1Range;
+    this.replyReq['reqObj']['subtypee2'] = this.e2Range;
 
     console.log(this.replyReq);
   }
@@ -253,9 +292,18 @@ export class InquiryreplyPage {
         {
           text: '确定',
           handler: () => {
+            let loading = this.loading.create({
+              content: '提交中...'
+            });
+            loading.present();
             this.constructReply();
-            this.auth.updateInquiry(this.replyReq);
-            this.viewCtrl.dismiss();
+            this.auth.updateInquiry(this.replyReq).then((res) => {
+              loading.dismiss();
+              this.viewCtrl.dismiss();
+            }).catch((err) => {
+              console.log('Err: in inquiryreply - err: ', err);
+              loading.dismiss();
+            });
           }
         }
       ]

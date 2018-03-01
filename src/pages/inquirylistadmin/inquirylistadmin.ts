@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
+import { InquiryreplyPage } from '../inquiryreply/inquiryreply';
 import { InquirydetailPage } from '../inquirydetail/inquirydetail';
 
 /**
- * Generated class for the InquiryPage page.
+ * Generated class for the InquirylistadminPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,26 +13,20 @@ import { InquirydetailPage } from '../inquirydetail/inquirydetail';
 
 @IonicPage()
 @Component({
-  selector: 'page-inquiry',
-  templateUrl: 'inquiry.html',
+  selector: 'page-inquirylistadmin',
+  templateUrl: 'inquirylistadmin.html',
 })
-export class InquiryPage {
+export class InquirylistadminPage {
 
-  acc_id: any;
   public inquiries = [];
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
+              public auth: AuthProvider,
               public modalCtrl: ModalController,
-              public loading: LoadingController,
-              public auth: AuthProvider) {
-    this.acc_id = navParams.get('acc_id');
-    let loading = this.loading.create({
-      content: '载入中...'
-    });
-    loading.present();
-    this.auth.getInquiriesForUser(this.acc_id).then((res) => {
-      console.log('res in InquiryPage: ', res);
+              public navParams: NavParams) {
+    let acc_id = this.navParams.get('acc_id');
+    this.auth.getInquiriesForUser(acc_id).then((res) => {
+      console.log('got inquiry list records - ', res);
       for (let i = 0; i < (<any>res).length; i++) {
         let datetime = res[i]['timestamp'].substring(0, 10);
         let time = res[i]['timestamp'].substring(11, 16);
@@ -50,6 +45,7 @@ export class InquiryPage {
           'ori-status': res[i]['status'],
           'feedback': res[i]['reply'],
           'note': res[i]['note'],
+          'id': res[i]['id'],
           'subtypea1': res[i]['subtypea1'],
           'subtypea2': res[i]['subtypea2'],
           'subtypea3': res[i]['subtypea3'],
@@ -69,20 +65,23 @@ export class InquiryPage {
         this.inquiries.push(obj);
       }
       this.inquiries.reverse();
-      loading.dismiss();
     }).catch((err) => {
-      console.log('ERR: inquiry.ts - getInquiriesForUser - err: ', err);
-      loading.dismiss();
-    })
+      console.log("Err: in InquirylistadminPage constructor - err: ", err);
+    });
   }
 
-  presentDetailModal(inquiryObj) {
-    let modal = this.modalCtrl.create(InquirydetailPage, {'obj': inquiryObj});
-    modal.present();
+  checkInquiry(inquiry) {
+    if (inquiry['ori-status'] == true) {
+      let modal = this.modalCtrl.create(InquirydetailPage, {'obj': inquiry});
+      modal.present();
+    } else {
+      let modal = this.modalCtrl.create(InquiryreplyPage, {'obj': inquiry});
+      modal.present();
+    }
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad InquiryPage');
+    console.log('ionViewDidLoad InquirylistadminPage');
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, ModalController, LoadingController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Storage } from '@ionic/storage';
 import { ReceiptinfoPage } from '../receiptinfo/receiptinfo';
@@ -35,8 +35,13 @@ export class ProfilePage {
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               public auth: AuthProvider,
+              public loadingCtrl: LoadingController,
               public storage: Storage) {
 
+    let loading = this.loadingCtrl.create({
+      content: '载入中...'
+    });
+    loading.present();
     this.auth.retrieveAccountDetails().then((res) => {
       console.log("getting account details...");
       console.log(res);
@@ -44,8 +49,10 @@ export class ProfilePage {
       this.date = res['birthday'];
       this.sex = res['sex'];
       console.log(this.user);
+      loading.dismiss();
     }).catch((err) => {
       console.log('profile.ts - retrieveAccountDetails - err: ', err);
+      loading.dismiss();
     });
   }
 

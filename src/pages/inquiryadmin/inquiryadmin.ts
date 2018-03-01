@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { InquiryreplyPage } from '../inquiryreply/inquiryreply';
 
@@ -22,8 +22,12 @@ export class InquiryadminPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public modalCtrl: ModalController,
+              public loading: LoadingController,
               public auth: AuthProvider) {
-
+    let loading = this.loading.create({
+      content: '载入中...'
+    });
+    loading.present();
     this.auth.getUnresolvedInquiries().then((res) => {
       console.log('unresolved inquiries response: ', res);
       for (let i = 0; i < (<any>res).length; i++) {
@@ -41,8 +45,10 @@ export class InquiryadminPage {
         this.inquiries.push(obj);
       }
       this.inquiries.reverse();
+      loading.dismiss();
     }).catch((err) => {
       console.log('in inquiryadmin.ts constructor - getUnresolvedInquiries - err: ', err);
+      loading.dismiss();
     });
   }
 

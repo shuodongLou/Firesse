@@ -63,6 +63,23 @@ export class AuthProvider {
       console.log('after storage.set()');
   }
 
+  getAccountList() {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr);
+        this.http.get('http://192.168.1.110:8000/accounts', {headers})
+          .subscribe((res) => {
+            console.log('got account list: ', res);
+            resolve(res);
+          },  (err) => {
+            console.log('ERR: auth - getAccountList - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
   retrieveAccountDetails() {
     return new Promise((resolve, reject) => {
       this.storage.get('token').then((value) => {
@@ -211,6 +228,23 @@ export class AuthProvider {
             resolve(res);
           }, (err) => {
             console.log('Err, updateInquiry() request failed - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  getAccidByUser(user_id) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr);
+        this.http.get('http://192.168.1.110:8000/getaccidbyuser/' + user_id, {headers})
+          .subscribe((res) => {
+            console.log('got account id: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err, getAccidByUser - err: ', err);
             reject(err);
           });
       });

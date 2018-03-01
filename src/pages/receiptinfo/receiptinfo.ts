@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController, LoadingController } from 'ionic-angular';
 import { AddressProvider } from '../../providers/address/address';
 import { Storage } from '@ionic/storage';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -37,11 +37,16 @@ export class ReceiptinfoPage {
               public address: AddressProvider,
               public auth: AuthProvider,
               public storage: Storage,
+              public loading: LoadingController,
               public viewCtrl: ViewController) {
 
     //setup multiPickerColumns for addresses
     this.addressColumns = this.address.addresses;
 
+    let loading = this.loading.create({
+      content: '载入中...'
+    });
+    loading.present();
     this.auth.retrieveAccountDetails().then((res) => {
       console.log("getting account details...");
       console.log(res);
@@ -53,8 +58,10 @@ export class ReceiptinfoPage {
       this.city = res['city'];
       this.county = res['county'];
       this.currentAddress = this.province + ' ' + this.city + ' ' + this.county;
+      loading.dismiss();
     }).catch((err) => {
       console.log('receiptinfo.ts - retrieveAccountDetails - err: ', err);
+      loading.dismiss();
     });
     console.log('currentAddress: ', this.currentAddress);
   }
@@ -81,6 +88,7 @@ export class ReceiptinfoPage {
         name: this.name,
         phone: this.phone
       }
+      
       this.auth.updateAccountDetails(details).then((res) => {
         console.log("updated in profile...");
         this.viewCtrl.dismiss();

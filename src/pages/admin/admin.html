@@ -15,9 +15,14 @@
 
 <ion-content padding>
   <ion-card>
-    <button ion-item (click)="gotoInquiries()">
-      查看问诊记录
-    </button>
+    <ion-list no-lines>
+      <button ion-item (click)="gotoInquiries()">
+        查看问诊记录
+      </button>
+      <button ion-item (click)="gotoSearchMember()">
+        查看病例
+      </button>
+    </ion-list>
   </ion-card>
 
 </ion-content>

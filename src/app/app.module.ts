@@ -16,6 +16,7 @@ import { ReceiptinfoPage } from '../pages/receiptinfo/receiptinfo';
 import { AddressProvider } from '../providers/address/address';
 import { InquirydetailPage } from '../pages/inquirydetail/inquirydetail';
 import { InquiryreplyPage } from '../pages/inquiryreply/inquiryreply';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { InquiryreplyPage } from '../pages/inquiryreply/inquiryreply';
       backButtonText: ''
     }),
     IonicStorageModule.forRoot(),
-    MultiPickerModule
+    MultiPickerModule,
+    ChartsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

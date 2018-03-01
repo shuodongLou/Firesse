@@ -54,7 +54,7 @@ export class PhotoPage {
     return {
       turnOn: () => {
         loadMessage = this.loadingCtrl.create({
-          content: 'Please Wait, doing something awesome'
+          content: '图片展示中...'
         });
         loadMessage.present();
       },

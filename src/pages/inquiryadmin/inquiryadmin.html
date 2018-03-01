@@ -16,7 +16,9 @@
 <ion-content padding>
 
   <ion-card>
-    <ion-card-header>待回复的问诊</ion-card-header>
+    <ion-card-header>
+      <h2 ion-text color='danger' style="font-weight:bold;">待回复的问诊</h2>
+    </ion-card-header>
     <ion-list no-lines>
       <button ion-item *ngFor="let inquiry of inquiries" (click)="presentDetailModal(inquiry)">
         {{inquiry.timestamp}}
