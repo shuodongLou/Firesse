@@ -66,10 +66,10 @@ export class InquiryreplyPage {
               public auth: AuthProvider,
               public popoverCtrl: PopoverController,
               public alertCtrl: AlertController,
-              public loading: LoadingController,
+              public loadingCtrl: LoadingController,
               public storage: Storage,
               public viewCtrl: ViewController) {
-    let loading = this.loading.create({
+    let loading = this.loadingCtrl.create({
       content: '载入中...'
     });
     loading.present();
@@ -292,7 +292,7 @@ export class InquiryreplyPage {
         {
           text: '确定',
           handler: () => {
-            let loading = this.loading.create({
+            let loading = this.loadingCtrl.create({
               content: '提交中...'
             });
             loading.present();
@@ -315,17 +315,24 @@ export class InquiryreplyPage {
 
   ionViewDidLoad() {
     console.log('inquiry id is: ', this.id);
+    let loading = this.loadingCtrl.create({
+      content: '正在加载图片...'
+    });
+    loading.present();
     this.auth.getPhotoByInquiryId(this.id).then((res) => {
       console.log('successfully got photo pathnames by id - ', this.id);
 
       for(let i=0; i < (<any>res).length; i++) {
         console.log(res[i]);
-        let path = '//192.168.1.110:8000/media/' + res[i]['photo'];
+        let path = this.auth.server_url + 'media/' + res[i]['photo'];
         console.log('pathname: ', path);
         this.photopaths.push(path);
       }
+
+      loading.dismiss();
     }).catch((err) => {
       console.log('ERR: inquiryreply.ts constructor getPhotoByInquiryId() - err: ', err);
+      loading.dismiss();
     });
 
     console.log('ionViewDidLoad InquiryreplyPage');

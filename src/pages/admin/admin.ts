@@ -24,6 +24,9 @@ export class AdminPage {
   gotoSearchMember() {
     this.navCtrl.push("SearchmemberPage");
   }
+  gotoProductsAdmin() {
+    this.navCtrl.push("ProductadminPage");
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminPage');

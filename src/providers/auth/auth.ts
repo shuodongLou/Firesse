@@ -12,10 +12,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthProvider {
 
-  //public token: any;
-  //public isLoggedIn=false;
-  //public role: any;
-  //public pk: any;
+  public server_url = 'http://192.168.0.102:8000/';
 
   constructor(public http: HttpClient, public storage: Storage) {
   }
@@ -23,7 +20,7 @@ export class AuthProvider {
   createAccount(details){
       return new Promise((resolve, reject) => {
           let headers = new HttpHeaders().set('Content-Type', 'application/json');
-          this.http.post('http://192.168.1.110:8000/create_account/', JSON.stringify(details), {headers})
+          this.http.post(this.server_url + 'create_account/', JSON.stringify(details), {headers})
               .subscribe(res => {
                   console.log(res);
                   resolve(res);
@@ -36,7 +33,7 @@ export class AuthProvider {
   login(credentials){
       return new Promise((resolve, reject) => {
           let headers = new HttpHeaders().set('Content-Type', 'application/json');
-          this.http.post('http://192.168.1.110:8000/custom-token-auth/', JSON.stringify(credentials), {headers})
+          this.http.post(this.server_url + 'custom-token-auth/', JSON.stringify(credentials), {headers})
               .subscribe(res => {
                   console.log(res);
                   this.storage.set('token', res['token']);
@@ -68,7 +65,7 @@ export class AuthProvider {
       this.storage.get('token').then((value) => {
         let tokenStr = 'Token ' + value;
         let headers = new HttpHeaders().set('Authorization', tokenStr);
-        this.http.get('http://192.168.1.110:8000/accounts', {headers})
+        this.http.get(this.server_url + 'accounts', {headers})
           .subscribe((res) => {
             console.log('got account list: ', res);
             resolve(res);
@@ -90,7 +87,7 @@ export class AuthProvider {
         this.storage.get('pk').then((value) => {
           let pk = value;
           console.log('pk: ', pk);
-          this.http.get('http://192.168.1.110:8000/accounts/' + pk, {headers})
+          this.http.get(this.server_url + 'accounts/' + pk, {headers})
               .subscribe(res => {
                   console.log('got the res obj');
                   resolve(res);
@@ -114,7 +111,7 @@ export class AuthProvider {
         console.log(headers.getAll('Authorization'));
         this.storage.get('pk').then((value) => {
           let pk = value;
-          this.http.put('http://192.168.1.110:8000/accounts/' + pk, JSON.stringify(details), {headers})
+          this.http.put(this.server_url + 'accounts/' + pk, JSON.stringify(details), {headers})
             .subscribe(res => {
               console.log('updated successfully - res: ', res);
               resolve(res);
@@ -132,7 +129,7 @@ export class AuthProvider {
       this.storage.get('token').then((value) => {
         let tokenStr = 'Token ' + value;
         let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
-        this.http.post('http://192.168.1.110:8000/storeimg/', JSON.stringify(photoReq), {headers})
+        this.http.post(this.server_url + 'storeimg/', JSON.stringify(photoReq), {headers})
           .subscribe(res => {
             console.log('image uploaded successfully - res: ', res);
             resolve(res);
@@ -149,7 +146,7 @@ export class AuthProvider {
       this.storage.get('token').then((value) => {
         let tokenStr = 'Token ' + value;
         let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
-        this.http.post('http://192.168.1.110:8000/inquiries/', JSON.stringify(details), {headers})
+        this.http.post(this.server_url + 'inquiries/', JSON.stringify(details), {headers})
           .subscribe(res => {
             console.log('Inquiry sent successfully - res: ', res);
             resolve(res);
@@ -166,7 +163,7 @@ export class AuthProvider {
       this.storage.get('token').then((value) => {
         let tokenStr = 'Token ' + value;
         let headers = new HttpHeaders().set("Authorization", tokenStr);
-        this.http.get('http://192.168.1.110:8000/inquiriesforuser/' + acc_id, {headers})
+        this.http.get(this.server_url + 'inquiriesforuser/' + acc_id, {headers})
           .subscribe(res => {
             console.log('got res for user - res: ', res);
             resolve(res);
@@ -183,7 +180,7 @@ export class AuthProvider {
       this.storage.get('token').then((value) => {
         let tokenStr = 'Token ' + value;
         let headers = new HttpHeaders().set("Authorization", tokenStr);
-        this.http.get('http://192.168.1.110:8000/unresolvedinquiries/', {headers})
+        this.http.get(this.server_url + 'unresolvedinquiries/', {headers})
           .subscribe(res => {
             console.log('got res for user - res: ', res);
             resolve(res);
@@ -202,7 +199,7 @@ export class AuthProvider {
         let tokenStr = 'Token ' + value;
         let headers = new HttpHeaders().set('Authorization', tokenStr);
         console.log('in auth - id obj: ', inq_id);
-        this.http.get('http://192.168.1.110:8000/getphotobyinquiryid/' + inq_id, {headers})
+        this.http.get(this.server_url + 'getphotobyinquiryid/' + inq_id, {headers})
           .subscribe((res) => {
             console.log('got photos by inquiry id - res: ', res);
             resolve(res);
@@ -222,7 +219,7 @@ export class AuthProvider {
         let pk = reqPack['id'];
         console.log('inq_id is ', pk);
         console.log('reqObj: ', reqPack['reqObj']);
-        this.http.put('http://192.168.1.110:8000/inquiries/' + pk, JSON.stringify(reqPack['reqObj']), {headers})
+        this.http.put(this.server_url + 'inquiries/' + pk, JSON.stringify(reqPack['reqObj']), {headers})
           .subscribe((res) => {
             console.log('updated inquiry successfully - res: ', res);
             resolve(res);
@@ -239,12 +236,114 @@ export class AuthProvider {
       this.storage.get('token').then((value) => {
         let tokenStr = 'Token ' + value;
         let headers = new HttpHeaders().set('Authorization', tokenStr);
-        this.http.get('http://192.168.1.110:8000/getaccidbyuser/' + user_id, {headers})
+        this.http.get(this.server_url + 'getaccidbyuser/' + user_id, {headers})
           .subscribe((res) => {
             console.log('got account id: ', res);
             resolve(res);
           }, (err) => {
             console.log('Err, getAccidByUser - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  createProduct(details) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
+        this.http.post(this.server_url + 'products/', JSON.stringify(details), {headers})
+          .subscribe((res) => {
+            console.log('created new product successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err, in auth, createProduct - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  getProductList() {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr);
+        this.http.get(this.server_url + 'products/', {headers})
+          .subscribe((res) => {
+            console.log('got product list - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err, in auth, getProductList - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  updateProduct(reqPack) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
+        this.http.put(this.server_url + 'products/' + reqPack['id'], JSON.stringify(reqPack['product']), {headers})
+          .subscribe((res) => {
+            console.log('updated product successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err, in auth updateProduct - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  uploadProductImages(imgReq) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
+        this.http.post(this.server_url + 'productimages/', JSON.stringify(imgReq), {headers})
+          .subscribe((res) => {
+            console.log('uploaded images for product successfully');
+            resolve(res);
+          }, (err) => {
+            console.log('Err, in auth uploadProductImages - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  getProductImageListByProduct(product_id) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr);
+        this.http.get(this.server_url + 'productimages/' + product_id, {headers})
+          .subscribe((res) => {
+            console.log('got product image paths for product successfully - res', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err, in auth getProductImageListByProduct - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  deleteProductImage(img_id) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr);
+        this.http.delete(this.server_url + 'productimagesops/' + img_id, {headers})
+          .subscribe((res) => {
+            console.log('deleted successfully - res', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err, in auth deleteProductImage - err: ', err);
             reject(err);
           });
       });

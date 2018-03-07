@@ -16,6 +16,7 @@ import { ReceiptinfoPage } from '../pages/receiptinfo/receiptinfo';
 import { AddressProvider } from '../providers/address/address';
 import { InquirydetailPage } from '../pages/inquirydetail/inquirydetail';
 import { InquiryreplyPage } from '../pages/inquiryreply/inquiryreply';
+import { CreateproductPage } from '../pages/createproduct/createproduct';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     AgentPage,
     ReceiptinfoPage,
     InquirydetailPage,
-    InquiryreplyPage
+    InquiryreplyPage,
+    CreateproductPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     AgentPage,
     ReceiptinfoPage,
     InquirydetailPage,
-    InquiryreplyPage
+    InquiryreplyPage,
+    CreateproductPage
   ],
   providers: [
     StatusBar,

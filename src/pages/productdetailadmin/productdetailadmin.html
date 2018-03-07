@@ -1,0 +1,75 @@
+<!--
+  Generated template for the ProductdetailadminPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>产品细节管理</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-label color='primary'>产品名称</ion-label>
+    <ion-input type='text' [(ngModel)]='productName'></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color='primary'>所属系列</ion-label>
+    <ion-select [(ngModel)]='series'>
+      <ion-option>祛痘</ion-option>
+      <ion-option>其他</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label color='primary'>产品描述</ion-label>
+    <ion-textarea rows='5' [(ngModel)]='productDesc'></ion-textarea>
+  </ion-item>
+  <ion-item>
+    <ion-label color='primary'>定价</ion-label>
+    <ion-input type='number' [(ngModel)]='price'></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color='primary'>初始库存</ion-label>
+    <ion-input type='number' [(ngModel)]='inventory'></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color='primary'>产品状态</ion-label>
+    <ion-select [(ngModel)]='status'>
+      <ion-option>normal</ion-option>
+      <ion-option>sold-out</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label color='primary'>货架正展示图片：</ion-label>
+  </ion-item>
+  <ion-item *ngFor="let item of imgs_load">
+    <img [src]="item['path']" style="width:30%; height:30%"/>
+    <button ion-button clear large icon-only item-right color="dark" (click)="remove(item)">
+      <ion-icon name="trash"></ion-icon>
+    </button>
+  </ion-item>
+  <ion-item>
+    <ion-label color='primary'>可选添加图片：</ion-label>
+  </ion-item>
+  <ion-item *ngFor="let img of imgs_add" >
+    <img item-left [src]="img" style="width:30%; height:30%"/>
+    <button ion-button clear large icon-only item-right color="dark" (click)="removepresent(img)">
+      <ion-icon name="trash"></ion-icon>
+    </button>
+  </ion-item>
+  <ion-item no-lines>
+    <input #inputcamera type="file" name="file" id="file" accept="image/*"/>
+    <label for="file">
+      上传图片
+    </label>
+  </ion-item>
+  <button ion-button large full block (click)="submit()">
+    更新产品信息
+  </button>
+
+</ion-content>

@@ -37,13 +37,13 @@ export class ReceiptinfoPage {
               public address: AddressProvider,
               public auth: AuthProvider,
               public storage: Storage,
-              public loading: LoadingController,
+              public loadingCtrl: LoadingController,
               public viewCtrl: ViewController) {
 
     //setup multiPickerColumns for addresses
     this.addressColumns = this.address.addresses;
 
-    let loading = this.loading.create({
+    let loading = this.loadingCtrl.create({
       content: '载入中...'
     });
     loading.present();
@@ -88,7 +88,7 @@ export class ReceiptinfoPage {
         name: this.name,
         phone: this.phone
       }
-      
+
       this.auth.updateAccountDetails(details).then((res) => {
         console.log("updated in profile...");
         this.viewCtrl.dismiss();

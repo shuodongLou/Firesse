@@ -23,10 +23,10 @@ export class InquiryPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public modalCtrl: ModalController,
-              public loading: LoadingController,
+              public loadingCtrl: LoadingController,
               public auth: AuthProvider) {
     this.acc_id = navParams.get('acc_id');
-    let loading = this.loading.create({
+    let loading = this.loadingCtrl.create({
       content: '载入中...'
     });
     loading.present();

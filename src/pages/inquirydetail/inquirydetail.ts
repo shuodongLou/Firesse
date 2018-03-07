@@ -51,10 +51,10 @@ export class InquirydetailPage {
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
-              public loading: LoadingController,
+              public loadingCtrl: LoadingController,
               public navParams: NavParams) {
     console.log('received obj in inquirydetail page: ', this.navParams.get('obj'));
-    let loading = this.loading.create({
+    let loading = this.loadingCtrl.create({
       content: '载入中...'
     });
     loading.present();

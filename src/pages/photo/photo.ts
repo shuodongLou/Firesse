@@ -84,20 +84,7 @@ export class PhotoPage {
 
       reader.onload = (r: any) => {
 
-        //THIS IS THE ORIGINAL BASE64 STRING AS SNAPPED FROM THE CAMERA
-        //THIS IS PROBABLY THE ONE TO UPLOAD BACK TO YOUR DB AS IT'S UNALTERED
-        //UP TO YOU, NOT REALLY BOTHERED
         let base64 = r.target.result as string;
-
-        /*
-        //FIXING ORIENTATION USING NPM PLUGIN fix-orientation
-        fixOrientation(base64, { image: true }, (fixed: string, image: any) => {
-          //fixed IS THE NEW VERSION FOR DISPLAY PURPOSES
-          this.img = fixed;
-
-          this.loading.turnOff();
-        });
-        */
 
         this.img.push(base64);
         this.img.reverse();
@@ -159,28 +146,6 @@ export class PhotoPage {
       }).catch((err) => {
         console.log('ERR: photo.ts:139 - uploading()/createInquiry() - err: ', err);
       });
-      /*
-      this.auth.uploadImg(photoReq).then((res) => {
-        console.log('image uploaded successfully...');
-        loading.dismiss();
-      }).then(() => {
-        console.log('post uploading inquiry info...');
-        let details = {
-          'account': this.acc_id,
-          'note': this.note
-        };
-        return this.auth.createInquiry(details);
-      }).then((res) => {
-        console.log('after createInquiry res: ', res);
-        return this.navCtrl.push("InquiryPage", { acc_id: this.acc_id });
-      }).then(() => {
-        const index = this.viewCtrl.index;
-        this.navCtrl.remove(index);
-        console.log('debug - removed...');
-      }).catch((err) => {
-        console.log('ERR: photo.ts:139 - uploading()/createInquiry() - err: ', err);
-      });
-*/
     }
   }
 

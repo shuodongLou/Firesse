@@ -22,9 +22,9 @@ export class InquiryadminPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public modalCtrl: ModalController,
-              public loading: LoadingController,
+              public loadingCtrl: LoadingController,
               public auth: AuthProvider) {
-    let loading = this.loading.create({
+    let loading = this.loadingCtrl.create({
       content: '载入中...'
     });
     loading.present();

@@ -21,9 +21,9 @@ export class SearchmemberPage {
 
   constructor(public navCtrl: NavController,
               public auth: AuthProvider,
-              public loading: LoadingController,
+              public loadingCtrl: LoadingController,
               public navParams: NavParams) {
-    let loading = this.loading.create({
+    let loading = this.loadingCtrl.create({
       content: '载入中...'
     });
     loading.present();
