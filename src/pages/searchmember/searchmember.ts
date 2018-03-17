@@ -18,11 +18,13 @@ export class SearchmemberPage {
 
   public items = [];
   public perItems = [];
+  public param:any;
 
   constructor(public navCtrl: NavController,
               public auth: AuthProvider,
               public loadingCtrl: LoadingController,
               public navParams: NavParams) {
+    this.param = this.navParams.get('param');
     let loading = this.loadingCtrl.create({
       content: '载入中...'
     });
@@ -61,7 +63,13 @@ export class SearchmemberPage {
 
   gotoProfile(account) {
     console.log('in gotoProfile - account: ', account);
-    this.navCtrl.push("PatientrecordPage", { 'account': account });
+    if (this.param == 'records') {
+      this.navCtrl.push("PatientrecordPage", { 'account': account });
+    } else if (this.param == 'accounts') {
+      console.log('going to AccountdetailsPage');
+      this.navCtrl.push('AccountadminPage', { 'account': account });
+    }
+
   }
 
   ionViewDidLoad() {

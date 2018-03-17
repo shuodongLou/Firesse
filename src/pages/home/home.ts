@@ -20,8 +20,6 @@ export class HomePage {
               public auth: AuthProvider) {
   }
 
-
-
   gotoSignup() {
     this.navCtrl.push("SignupPage");
   }

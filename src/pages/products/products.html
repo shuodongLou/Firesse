@@ -6,13 +6,43 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>products</ion-title>
+  <ion-navbar color='dark'>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>燃典产品</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="gotoCart()">
+        <ion-icon name='cart'></ion-icon>
+        {{ n }}
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding id='bg'>
+  <ion-card *ngFor="let product of products">
+    <ion-slides #myslides *ngIf="product['images']" loop='true' pager='true' effect='cube' (click)="gotoProduct(product)">
+      <ion-slide *ngFor="let image of product['images']">
+        <img [src]="this.auth.server_url + 'media/' + image['image']"/>
+      </ion-slide>
+    </ion-slides>
+    <ion-item style="margin-top: 30px;" (click)="gotoProduct(product)">
+      <h2 item-left ion-text>{{product['info']['name']}}</h2>
+      <h2 item-right ion-text>￥{{product['info']['price']}}</h2>
+    </ion-item>
+    <ion-item (click)="gotoProduct(product)">
+      <h3 ion-text item-left>{{product['info']['volume']}}</h3>
+    </ion-item>
+    <ion-item (click)="gotoProduct(product)">
+      <p ion-text>{{product['info']['desc']}}</p>
+    </ion-item>
+    <ion-item>
+      <button large item-right ion-button icon-only clear (click)='addToCart(product)'>
+        <ion-icon color='dark' name='cart'></ion-icon>
+      </button>
+    </ion-item>
+  </ion-card>
 
 </ion-content>

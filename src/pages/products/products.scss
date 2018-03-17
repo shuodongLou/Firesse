@@ -1,3 +1,15 @@
 page-products {
+  p {
+    white-space: pre-wrap;
+  },
 
+  #notifications-badge {
+    position:absolute;
+    top:-0.2rem;
+    right:-0.6rem;
+  },
+
+  #bg {
+    background-color: #D1D1D1;
+  }
 }

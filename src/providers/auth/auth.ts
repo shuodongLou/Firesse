@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthProvider {
 
-  public server_url = 'http://192.168.0.102:8000/';
+  public server_url = 'http://192.168.1.6:8000/';
 
   constructor(public http: HttpClient, public storage: Storage) {
   }
@@ -120,6 +120,23 @@ export class AuthProvider {
               reject(err);
             });
         });
+      });
+    });
+  }
+
+  updateAccountDetailsById(details, acct_id) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
+        this.http.put(this.server_url + 'accounts/' + acct_id, JSON.stringify(details), {headers})
+          .subscribe(res => {
+            console.log('updated successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('update failed... err: ', err);
+            reject(err);
+          });
       });
     });
   }
@@ -344,6 +361,74 @@ export class AuthProvider {
             resolve(res);
           }, (err) => {
             console.log('Err, in auth deleteProductImage - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  createAgent(details) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
+        this.http.post(this.server_url + 'agents/', JSON.stringify(details), {headers})
+          .subscribe((res) => {
+            console.log('new agent created successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err, in auth createAgent - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  getAgentsByAccount(acct_id) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr);
+        this.http.get(this.server_url + 'agentsbyaccount/' + acct_id, {headers})
+          .subscribe((res) => {
+            console.log('got agents by acct_id - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err, in auth getAgentsByAccount - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  deleteAgent(agent_id) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr);
+        this.http.delete(this.server_url + 'agents/' + agent_id, {headers})
+          .subscribe((res) => {
+            console.log('deleted agent - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err, in auth deleteAgent - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  hasFirecode(fire_code) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
+        this.http.post(this.server_url + 'hasfirecode/', JSON.stringify(fire_code), {headers} )
+          .subscribe((res) => {
+            console.log('has fire code');
+            resolve(res);
+          }, (err) => {
+            console.log('there is no such fire code');
             reject(err);
           });
       });

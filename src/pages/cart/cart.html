@@ -1,0 +1,85 @@
+<!--
+  Generated template for the CartPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color='dark'>
+    <ion-title>我的护肤包</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-item style="border-bottom: 1px solid grey; padding: 0px;">
+    <img src="assets/img/firesse_logo_prod.png" style="width: 65%; height: 65%; padding: 10px; position: relative; top: 1rem"/>
+    <h2 style="padding: 10px; font-size: 20px; position: relative; bottom: 1rem;" ion-text>
+      quality skincare solution
+    </h2>
+  </ion-item>
+  <ion-item *ngFor="let item of productList">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <img [src]="item['cover']" />
+        </ion-col>
+        <ion-col col-auto>
+          <ion-list>
+            <ion-item>
+              <h2 item-left ion-text style="margin:auto;">{{item['info']['name']}}</h2>
+              <h3 item-right ion-text>{{item['info']['volume']}}</h3>
+            </ion-item>
+            <ion-item item-right>
+              <ion-select item-left [(ngModel)]="item['quantity']" cancelText='取消' okText='确定' (ionChange)="updateQuantity(item)">
+                <ion-option>1</ion-option>
+                <ion-option>2</ion-option>
+                <ion-option>3</ion-option>
+                <ion-option>4</ion-option>
+                <ion-option>5</ion-option>
+                <ion-option>6</ion-option>
+                <ion-option>7</ion-option>
+                <ion-option>8</ion-option>
+                <ion-option>9</ion-option>
+                <ion-option>10</ion-option>
+              </ion-select>
+              <button item-right ion-button clear normal color='primary' (click)='removeItem(item)'>
+                移除
+              </button>
+            </ion-item>
+            <ion-item>
+              <h2 item-right ion-text>￥{{item['subtotal']}}</h2>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <ion-item style="border-top: 1px solid grey; border-top-style: double;">
+    <ion-label item-left>账单总计</ion-label>
+    <ion-list item-right>
+      <ion-item>
+        <h2 ion-text style="font-weight:bolder;">￥{{total}}</h2>
+      </ion-item>
+    </ion-list>
+  </ion-item>
+  <ion-item no-lines>
+    <button ion-button round large color='dark' (click)="goback()">
+      继续浏览
+    </button>
+  </ion-item>
+  <ion-label color='danger' *ngIf="isEmpty">{{ warning }}</ion-label>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-item start no-lines>总金额（不含运费）：￥{{ total }}</ion-item>
+    <ion-buttons right>
+      <ion-item color='danger' (click)="confirmOrder()">安全结算</ion-item>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

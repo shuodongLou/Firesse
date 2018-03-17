@@ -17,11 +17,17 @@ import { AuthProvider } from '../../providers/auth/auth';
 export class ProductdetailadminPage {
 
   public productName:string;
+  public productNameE:string;
   public productDesc:string;
   public series:string;
   public price:number;
   public inventory:number;
   public status:string;
+  public volume:string;
+  public effects:string;
+  public ingredients:string;
+  public usage:string;
+  public notes:string;
 
   public id:number;
 
@@ -39,11 +45,17 @@ export class ProductdetailadminPage {
               public navParams: NavParams) {
     let product = this.navParams.get('product');
     this.productName = product['name'];
+    this.productNameE = product['name_e'];
+    this.volume = product['volume'];
     this.productDesc = product['desc'];
     this.price = product['price'];
     this.inventory = product['inventory'];
     this.series = product['series'];
     this.status = product['status'];
+    this.effects = product['effects'];
+    this.ingredients = product['ingredients'];
+    this.usage = product['usage'];
+    this.notes = product['notes'];
 
     this.id = product['id'];
   }
@@ -58,22 +70,30 @@ export class ProductdetailadminPage {
     reqPack['id'] = this.id;
     let reqObj = {};
     reqObj['name'] = this.productName;
+    reqObj['name_e'] = this.productNameE;
+    reqObj['volume'] = this.volume;
     reqObj['desc'] = this.productDesc;
     reqObj['price'] = this.price;
     reqObj['inventory'] = this.inventory;
     reqObj['series'] = this.series;
     reqObj['status'] = this.status;
+    reqObj['effects'] = this.effects;
+    reqObj['ingredients'] = this.ingredients;
+    reqObj['usage'] = this.usage;
+    reqObj['notes'] = this.notes;
     reqPack['product'] = reqObj;
 
     console.log('reqPack: ', reqPack);
 
     this.auth.updateProduct(reqPack).then((res) => {
       console.log('product details updated successfully - res: ', res);
-      let imgReq = {
-        'product': this.id,
-        'image': this.imgs_add
-      };
-      this.auth.uploadProductImages(imgReq);
+      if (this.imgs_add.length > 0) {
+        let imgReq = {
+          'product': this.id,
+          'image': this.imgs_add
+        };
+        this.auth.uploadProductImages(imgReq);
+      }
       loading.dismiss();
       this.viewCtrl.dismiss();
     }).catch((err) => {

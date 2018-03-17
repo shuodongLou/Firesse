@@ -1,0 +1,102 @@
+<!--
+  Generated template for the OrderPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>订单确认</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div text-center *ngIf='!destReady' id='destGrid'>
+    <button ion-button outline small color='danger' style="letter-spacing: 2px;" (click)="changeDest()">
+      <ion-icon name='add'></ion-icon>
+      创建收货地址
+    </button>
+  </div>
+  <ion-grid id='destGrid' *ngIf='destReady'>
+    <ion-row>
+      <ion-col align-self-center col-auto>
+        <ion-icon name='pin' color='danger'></ion-icon>
+      </ion-col>
+      <ion-col>
+        <ion-row>
+          <ion-col col-4>收件人：</ion-col>
+          <ion-col>{{ name }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>联系电话：</ion-col>
+          <ion-col>{{ phone }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>收件地址：</ion-col>
+          <ion-col>{{ destination }}</ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col align-self-center col-auto>
+        <button ion-button outline small color='primary' (click)="changeDest()">修改</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-item no-lines>
+    <button item-left ion-button large id='codeButton' [disabled]='hasFirecode' round (click)="applyFirecode()">
+      使用优惠码
+    </button>
+    <input ion-input item-right id='input' type='text' [(ngModel)]='firecode' placeholder='请联系合伙人获取' clearInput='true'/>
+  </ion-item>
+
+  <ion-item *ngFor="let item of purchase['productList']">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <img [src]="item['cover']" (press)="pressEvent($event, item['cover'])"/>
+        </ion-col>
+        <ion-col>
+          <ion-list>
+            <ion-item>
+              <h2 ion-text item-left>{{ item['info']['name'] }}</h2>
+              <p ion-text item-right style="font-weight: bold;">x{{ item['quantity'] }}</p>
+            </ion-item>
+            <ion-item>
+              <h2 ion-text item-right>小计：￥{{ item['subtotal'] }}</h2>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  <ion-item>
+    <ion-label item-left>产品合计：</ion-label>
+    <h2 ion-text item-right style="font-weight: bold;">￥{{ total }}</h2>
+  </ion-item>
+  <ion-item *ngIf='hasFirecode'>
+    <ion-label item-left>优惠减免：</ion-label>
+    <h2 ion-text item-right style="font-weight: bold;">-￥{{ discount }}</h2>
+  </ion-item>
+  <ion-item style="border-bottom: 1px solid grey; border-bottom-style: double;">
+    <ion-label item-left>运费：</ion-label>
+    <h2 ion-text item-right style="font-weight: bold;">￥{{ deliveryFee }}</h2>
+  </ion-item>
+  <ion-item>
+    <ion-label item-left>总计：</ion-label>
+    <h1 ion-text item-right style="font-weight: bold;">￥{{ finalPayment }}</h1>
+  </ion-item>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-item start no-lines>总金额：￥{{ finalPayment }}</ion-item>
+    <ion-buttons right>
+      <ion-item color='danger' (click)="placeOrder()">提交订单</ion-item>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

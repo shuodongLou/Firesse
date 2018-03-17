@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
-import { HomePage } from '../home/home'
 
 /**
  * Generated class for the SigninPage page.
@@ -21,6 +20,7 @@ export class SigninPage {
   authForm: FormGroup;
   submitAttempt: boolean;
   failedLoggin: boolean;
+  public page:any;
 
 
   constructor(public navCtrl: NavController,
@@ -32,7 +32,6 @@ export class SigninPage {
           phonenum: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(11), Validators.maxLength(11)])],
           password: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
       });
-
 
   }
 
@@ -54,8 +53,8 @@ export class SigninPage {
           console.log("Logged in...");
           console.log(res);
           loading.dismiss();
-          //this.navCtrl.pop();
-          this.navCtrl.setRoot(HomePage);
+          //this.navCtrl.setRoot('HomePage');
+          this.navCtrl.pop();
       }).catch((err) => {
           console.log("Not logged in... err: ", err);
           loading.dismiss();
@@ -65,7 +64,9 @@ export class SigninPage {
 
 
   gotoSignup() {
+    this.navCtrl.pop();
     this.navCtrl.push('SignupPage');
+
   }
 
   ionViewDidLoad() {

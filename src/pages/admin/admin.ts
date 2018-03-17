@@ -21,8 +21,8 @@ export class AdminPage {
   gotoInquiries() {
     this.navCtrl.push("InquiryadminPage");
   }
-  gotoSearchMember() {
-    this.navCtrl.push("SearchmemberPage");
+  gotoSearchMember(param) {
+    this.navCtrl.push("SearchmemberPage", { 'param': param });
   }
   gotoProductsAdmin() {
     this.navCtrl.push("ProductadminPage");

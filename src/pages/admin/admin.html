@@ -19,11 +19,14 @@
       <button ion-item (click)="gotoInquiries()">
         查看问诊记录
       </button>
-      <button ion-item (click)="gotoSearchMember()">
+      <button ion-item (click)="gotoSearchMember('records')">
         查看病例
       </button>
       <button ion-item (click)="gotoProductsAdmin()">
         产品管理
+      </button>
+      <button ion-item (click)="gotoSearchMember('accounts')">
+        会员管理
       </button>
     </ion-list>
   </ion-card>

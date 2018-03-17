@@ -3,7 +3,9 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title item-left>FIRESSE</ion-title>
+    <ion-item color='dark' no-lines>
+      <img item-left src="assets/img/firesse_log_white.png" style="width: 70%; height: 70%;"/>
+    </ion-item>
     <ion-buttons end *ngIf=isAdminLogged()>
       <button ion-button small block (click)="gotoAdmin()">
         <ion-icon name="settings"></ion-icon>
@@ -29,6 +31,7 @@
 </ion-header>
 
 <ion-content padding>
-
-  <button ion-button round color='primary' (click)="startJourney()">开始体验</button>
+  <div text-center>
+    <button ion-button round color='primary' (click)="startJourney()">开始体验</button>
+  </div>
 </ion-content>

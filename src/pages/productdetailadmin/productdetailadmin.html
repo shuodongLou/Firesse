@@ -19,6 +19,14 @@
     <ion-input type='text' [(ngModel)]='productName'></ion-input>
   </ion-item>
   <ion-item>
+    <ion-label color='primary'>英文名称</ion-label>
+    <ion-input type='text' [(ngModel)]='productNameE'></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color='primary'>容量</ion-label>
+    <ion-input type='text' [(ngModel)]='volume'></ion-input>
+  </ion-item>
+  <ion-item>
     <ion-label color='primary'>所属系列</ion-label>
     <ion-select [(ngModel)]='series'>
       <ion-option>祛痘</ion-option>
@@ -43,6 +51,22 @@
       <ion-option>normal</ion-option>
       <ion-option>sold-out</ion-option>
     </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label color='primary'>功效</ion-label>
+    <ion-textarea rows='3' [(ngModel)]='effects'></ion-textarea>
+  </ion-item>
+  <ion-item>
+    <ion-label color='primary'>成分</ion-label>
+    <ion-textarea rows='2' [(ngModel)]='ingredients'></ion-textarea>
+  </ion-item>
+  <ion-item>
+    <ion-label color='primary'>使用方法</ion-label>
+    <ion-textarea rows='3' [(ngModel)]='usage'></ion-textarea>
+  </ion-item>
+  <ion-item>
+    <ion-label color='primary'>注意事项</ion-label>
+    <ion-textarea rows='2' [(ngModel)]='notes'></ion-textarea>
   </ion-item>
   <ion-item>
     <ion-label color='primary'>货架正展示图片：</ion-label>

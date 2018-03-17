@@ -1,0 +1,68 @@
+<!--
+  Generated template for the ProductPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color='dark'>
+    <ion-title>产品详情</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="gotoCart()">
+        <ion-icon name='cart'></ion-icon>
+        {{ n }}
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-item no-lines>
+    <ion-slides loop='true' pager='true' effect='cube'>
+      <ion-slide *ngFor="let item of product['images']">
+        <img [src]="this.auth.server_url + 'media/' + item['image']" />
+      </ion-slide>
+    </ion-slides>
+  </ion-item>
+  <ion-item no-lines padding>
+    <h1 ion-text style="text-align: center;">{{ product['info']['name_e'] }}</h1>
+    <h2 ion-text style="text-align: center; letter-spacing: 10px;">{{ product['info']['name'] }}</h2>
+    <h2 ion-text style="text-align: center;">{{ product['info']['volume'] }}</h2>
+  </ion-item>
+  <div text-center>
+    <button ion-button round color='mei' style="letter-spacing: 3px; width: 50%;">快捷购买</button>
+  </div>
+  <div text-center>
+    <button ion-button round color='primary' style="letter-spacing: 3px; width: 50%;" (click)="addToCart()">
+      加入护肤包
+    </button>
+  </div>
+  <div class="spacer" style="height:40px;"></div>
+  <ion-item-divider text-center style="font-size:20px; font-weight:bolder;">描述</ion-item-divider>
+  <ion-item no-lines>
+    <p style="white-space:pre-wrap; text-align:center;">{{ product['info']['desc'] }}</p>
+  </ion-item>
+  <div class="spacer" style="height:40px;"></div>
+  <ion-item-divider text-center style="font-size:20px; font-weight:bolder;">功效</ion-item-divider>
+  <ion-item no-lines>
+    <p style="white-space:pre-wrap; text-align:center;">{{ product['info']['effects'] }}</p>
+  </ion-item>
+  <div class="spacer" style="height:40px;"></div>
+  <ion-item-divider text-center style="font-size:20px; font-weight:bolder;">使用方法</ion-item-divider>
+  <ion-item no-lines>
+    <p style="white-space:pre-wrap; text-align:center;">{{ product['info']['usage'] }}</p>
+  </ion-item>
+  <div class="spacer" style="height:40px;"></div>
+  <div text-center style="width:100%;">
+    <ion-item style="margin: 0 auto; width:40%; text-align:center; border-top: 0.5px solid grey; border-bottom: 0.5px solid grey">
+      <p ion-text style="font-size:17px;">成分</p>
+      <button ion-button icon-only clear item-right (click)="showIngredients()">
+        <ion-icon name='add-circle' outline color='dark'></ion-icon>
+      </button>
+    </ion-item>
+  </div>
+</ion-content>

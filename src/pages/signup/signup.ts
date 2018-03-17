@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
-import { HomePage } from '../home/home';
 
 /**
  * Generated class for the SignupPage page.
@@ -60,7 +59,8 @@ export class SignupPage {
                 console.log("Logged in...");
                 console.log(res);
                 loading.dismiss();
-                this.navCtrl.setRoot(HomePage);
+                //this.navCtrl.setRoot(HomePage);
+                this.navCtrl.pop();
             });
         }).catch((step) => {
           console.log('error catched');
@@ -73,6 +73,7 @@ export class SignupPage {
 
     gotoLogin() {
       console.log('goto');
+      this.navCtrl.pop();
       this.navCtrl.push('SigninPage');
     }
 

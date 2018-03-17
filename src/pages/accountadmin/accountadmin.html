@@ -1,0 +1,122 @@
+<!--
+  Generated template for the AccountadminPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>账户管理</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding id='bg'>
+  <ion-card>
+    <ion-card-header>基本资料卡</ion-card-header>
+    <ion-card-content>
+      <ion-item no-lines>
+        <ion-label item-left>user_id: </ion-label>
+        <p ion-text item-right>{{ account['user'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>用户名: </ion-label>
+        <p ion-text item-right>{{ account['username'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>姓名: </ion-label>
+        <p ion-text item-right>{{ account['name'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>性别: </ion-label>
+        <p ion-text item-right>{{ account['sex'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>地址: </ion-label>
+        <p ion-text item-right id='address'>{{ account['province'] + account['city'] + account['county'] + account['address'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>现联系方式: </ion-label>
+        <p ion-text item-right>{{ account['phone'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>生日: </ion-label>
+        <p ion-text item-right>{{ account['birthday'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>积分: </ion-label>
+        <p ion-text item-right>{{ account['points'] }}</p>
+      </ion-item>
+
+      <ion-item no-lines>
+        <ion-label item-left color='primary'>账户身份</ion-label>
+        <ion-select item-end id='roleS' [(ngModel)]="account['role']" (ionChange)='roleChange()'>
+          <ion-option>customer</ion-option>
+          <ion-option>agent</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf='isAgent'>
+    <ion-card-header>代理信息</ion-card-header>
+    <ion-card-content>
+      <ion-item no-lines>
+        <ion-label item-left>Agent ID:</ion-label>
+        <p ion-text item-right>{{ agent['id'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>Fire Code:</ion-label>
+        <p ion-text item-right>{{ agent['fire_code'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>提成比例:</ion-label>
+        <p ion-text item-right>{{ agent['commission_rate'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>当前积分:</ion-label>
+        <p ion-text item-right>{{ agent['fire_points'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>本月销量:</ion-label>
+        <p ion-text item-right>{{ agent['m_sales'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>今年累计销量:</ion-label>
+        <p ion-text item-right>{{ agent['y_sales'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>总销量:</ion-label>
+        <p ion-text item-right>{{ agent['t_sales'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>本月佣金:</ion-label>
+        <p ion-text item-right>{{ agent['m_commission'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>今年累计佣金:</ion-label>
+        <p ion-text item-right>{{ agent['y_commission'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>总佣金:</ion-label>
+        <p ion-text item-right>{{ agent['t_commission'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>本月奖金:</ion-label>
+        <p ion-text item-right>{{ agent['m_bonus'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>今年累计奖金:</ion-label>
+        <p ion-text item-right>{{ agent['y_bonus'] }}</p>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-label item-left>总奖金:</ion-label>
+        <p ion-text item-right>{{ agent['t_bonus'] }}</p>
+      </ion-item>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
