@@ -3,58 +3,48 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { AgentPage } from '../pages/agent/agent';
-import { ProductsPage } from '../pages/products/products';
+import { MultiPickerModule } from 'ion-multi-picker';
+//import { HomePage } from '../pages/home/home';
+//import { AgentPageModule } from '../pages/agent/agent.module';
+//import { ProductsPageModule } from '../pages/products/products.module';
+//import { BlogPageModule } from '../pages/blog/blog.module';
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+//import { StatusBar } from '@ionic-native/status-bar';
+//import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthProvider } from '../providers/auth/auth';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { MultiPickerModule } from 'ion-multi-picker';
-import { ReceiptinfoPage } from '../pages/receiptinfo/receiptinfo';
+
 import { AddressProvider } from '../providers/address/address';
-import { InquirydetailPage } from '../pages/inquirydetail/inquirydetail';
-import { InquiryreplyPage } from '../pages/inquiryreply/inquiryreply';
-import { CreateproductPage } from '../pages/createproduct/createproduct';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    AgentPage,
-    ProductsPage,
-    ReceiptinfoPage,
-    InquirydetailPage,
-    InquiryreplyPage,
-    CreateproductPage
+    //HomePage,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    MultiPickerModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: ''
     }),
+    //AgentPageModule,
+    //ProductsPageModule,
+    //BlogPageModule,
     IonicStorageModule.forRoot(),
-    MultiPickerModule,
+
     ChartsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    AgentPage,
-    ProductsPage,
-    ReceiptinfoPage,
-    InquirydetailPage,
-    InquiryreplyPage,
-    CreateproductPage
+    //HomePage,
   ],
   providers: [
-    StatusBar,
-    SplashScreen,
+    //StatusBar,
+    //SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     AddressProvider

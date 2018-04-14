@@ -1,0 +1,49 @@
+<!--
+  Generated template for the BlogadminPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>博客管理</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card *ngFor="let item of articleList">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-auto align-self-center tappable (click)="gotoEdit(item)">
+          <h1>{{ item['title'] }}</h1>
+        </ion-col>
+        <ion-col style="text-align: right" align-self-start>
+          <button ion-button clear color='danger' (click)="deleteArticle(item['id'])">
+            删除
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p ion-text>{{ item['time_written'] }}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col style="text-align: center">
+        <button ion-button icon-only outline round color='danger' (click)="createArticle()">
+          <ion-icon name="add-circle"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NavController, ViewController, LoadingController, Loading, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, ViewController, LoadingController, Loading, PopoverController, ToastController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Storage } from '@ionic/storage';
 
@@ -11,7 +11,10 @@ import { Storage } from '@ionic/storage';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  name: 'PhotoPage',
+  segment: 'photo'
+})
 @Component({
   selector: 'page-photo',
   templateUrl: 'photo.html',
@@ -39,12 +42,21 @@ export class PhotoPage {
               public viewCtrl: ViewController,
               private loadingCtrl: LoadingController,
               public popoverCtrl: PopoverController,
+              public toastCtrl: ToastController,
               public storage: Storage,
               public auth: AuthProvider) {
+
   }
 
   displayCard() {
     return (this.img).length !== 0;
+  }
+
+  gotoHome() {
+    this.navCtrl.setRoot('HomePage');
+  }
+  gotoProfile() {
+    this.navCtrl.push("ProfilePage");
   }
 
   //camera code begin #2
@@ -65,9 +77,6 @@ export class PhotoPage {
   //camera code end #2
 
   ionViewWillEnter() {
-    this.storage.get('role').then((value) => {
-      this.isLoggedIn = value;
-    });
     this.storage.get('pk').then((id) => {
       this.acc_id = id;
     });
@@ -112,14 +121,32 @@ export class PhotoPage {
   }
 
   upload() {
-    if (!this.isLoggedIn) {
-      this.navCtrl.push("SigninPage");
-    } else {
       let loading = this.loadingCtrl.create({
         content: '上传中...'
       });
       loading.present();
 
+
+      this.auth.retrieveAccountDetails().then((res) => {
+        let reqObj = {
+          'user': res['user'],
+          'role': res['role'],
+          'points': Number(res['points']) + 10
+        };
+        console.log('reqObj: ', reqObj);
+        return this.auth.updateAccountDetails(reqObj);
+      }).then((res) => {
+        console.log('res: ', res);
+        let toast = this.toastCtrl.create({
+          message: '您赢得了10积分',
+          showCloseButton: true,
+          closeButtonText: '关闭',
+          position: 'top'
+        });
+        toast.present();
+      }).catch((e) => {
+        console.log('Err: in photo.ts retrieveAccountDetails - e: ', e);
+      });
 
       let details = {
         'account': this.acc_id,
@@ -138,15 +165,12 @@ export class PhotoPage {
       }).then((res) => {
         console.log('after createInquiry res: ', res);
         loading.dismiss();
+        this.navCtrl.setRoot('HomePage');
         return this.navCtrl.push("InquiryPage", { acc_id: this.acc_id });
-      }).then(() => {
-        const index = this.viewCtrl.index;
-        this.navCtrl.remove(index);
-        console.log('debug - removed...');
       }).catch((err) => {
         console.log('ERR: photo.ts:139 - uploading()/createInquiry() - err: ', err);
       });
-    }
   }
+
 
 }

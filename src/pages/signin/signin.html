@@ -14,7 +14,7 @@
 
 <ion-content padding>
 
-  <form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm.value)">
+  <form [formGroup]="authForm" tappable (ngSubmit)="onSubmit(authForm.value)">
     <ion-item>
       <ion-label color="primary" floating>手机号码</ion-label>
       <ion-input formControlName="phonenum" type="tel" [class.invalid]="!authForm.controls.phonenum.valid && authForm.controls.phonenum.touched"></ion-input>

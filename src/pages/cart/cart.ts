@@ -87,13 +87,14 @@ export class CartPage {
     }
     this.storage.get('isLoggedIn').then((value) => {
       console.log('isLoggedIn: ', value);
+      let purchase = {
+        'productList': this.productList,
+        'total': this.total
+      };
       if (value == false || value == undefined || value == null) {
-        this.navCtrl.push("SigninPage", { 'signRoot': 'OrderPage' });
+        this.navCtrl.push("SigninPage", { 'target': 'OrderPage', 'purchase': purchase });
       } else {
-        let purchase = {
-          'productList': this.productList,
-          'total': this.total
-        };
+
         this.navCtrl.push("OrderPage", { 'purchase': purchase });
       }
     }).catch((err) => {
@@ -102,7 +103,7 @@ export class CartPage {
   }
 
   clearBadge() {
-    this.storage.set('cart', null);
+    this.storage.set('cart', undefined);
     this.storage.set('cartItemNumber', 0);
   }
 

@@ -34,6 +34,10 @@
           cancelText="取消" doneText="确定">
         </ion-datetime>
       </ion-item>
+      <ion-item>
+        <ion-label item-left>我的积分</ion-label>
+        <h2 ion-text item-right>{{ points }}</h2>
+      </ion-item>
     </ion-list>
   </ion-card>
 
@@ -41,6 +45,13 @@
     <button ion-item (click)="gotoInquiries()">
       我的问诊
     </button>
+    <button ion-item (click)="gotoOrders()">
+      我的订单
+    </button>
   </ion-card>
+
+  <button ion-button full color="danger" (click)="logout()">
+    退出登录
+  </button>
 
 </ion-content>

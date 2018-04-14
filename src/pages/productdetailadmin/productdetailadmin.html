@@ -16,57 +16,61 @@
 <ion-content padding>
   <ion-item>
     <ion-label color='primary'>产品名称</ion-label>
-    <ion-input type='text' [(ngModel)]='productName'></ion-input>
+    <ion-input type='text' [(ngModel)]='productObj.name'></ion-input>
   </ion-item>
   <ion-item>
     <ion-label color='primary'>英文名称</ion-label>
-    <ion-input type='text' [(ngModel)]='productNameE'></ion-input>
+    <ion-input type='text' [(ngModel)]='productObj.name_e'></ion-input>
   </ion-item>
   <ion-item>
     <ion-label color='primary'>容量</ion-label>
-    <ion-input type='text' [(ngModel)]='volume'></ion-input>
+    <ion-input type='text' [(ngModel)]='productObj.volume'></ion-input>
   </ion-item>
   <ion-item>
     <ion-label color='primary'>所属系列</ion-label>
-    <ion-select [(ngModel)]='series'>
+    <ion-select [(ngModel)]='productObj.series'>
       <ion-option>祛痘</ion-option>
       <ion-option>其他</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label color='primary'>产品描述</ion-label>
-    <ion-textarea rows='5' [(ngModel)]='productDesc'></ion-textarea>
+    <ion-textarea rows='5' [(ngModel)]='productObj.desc'></ion-textarea>
   </ion-item>
   <ion-item>
     <ion-label color='primary'>定价</ion-label>
-    <ion-input type='number' [(ngModel)]='price'></ion-input>
+    <ion-input item-right type='number' [(ngModel)]='productObj.price'></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label color='primary'>初始库存</ion-label>
-    <ion-input type='number' [(ngModel)]='inventory'></ion-input>
+    <ion-label color='primary'>当前库存</ion-label>
+    <ion-input item-right type='number' [(ngModel)]='productObj.inventory'></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label color='primary'>历史累计销售额</ion-label>
+    <ion-label item-right>{{ productObj['histsales'] }}</ion-label>
   </ion-item>
   <ion-item>
     <ion-label color='primary'>产品状态</ion-label>
-    <ion-select [(ngModel)]='status'>
+    <ion-select [(ngModel)]='productObj.status'>
       <ion-option>normal</ion-option>
       <ion-option>sold-out</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
     <ion-label color='primary'>功效</ion-label>
-    <ion-textarea rows='3' [(ngModel)]='effects'></ion-textarea>
+    <ion-textarea rows='3' [(ngModel)]='productObj.effects'></ion-textarea>
   </ion-item>
   <ion-item>
     <ion-label color='primary'>成分</ion-label>
-    <ion-textarea rows='2' [(ngModel)]='ingredients'></ion-textarea>
+    <ion-textarea rows='2' [(ngModel)]='productObj.ingredients'></ion-textarea>
   </ion-item>
   <ion-item>
     <ion-label color='primary'>使用方法</ion-label>
-    <ion-textarea rows='3' [(ngModel)]='usage'></ion-textarea>
+    <ion-textarea rows='3' [(ngModel)]='productObj.usage'></ion-textarea>
   </ion-item>
   <ion-item>
     <ion-label color='primary'>注意事项</ion-label>
-    <ion-textarea rows='2' [(ngModel)]='notes'></ion-textarea>
+    <ion-textarea rows='2' [(ngModel)]='productObj.notes'></ion-textarea>
   </ion-item>
   <ion-item>
     <ion-label color='primary'>货架正展示图片：</ion-label>

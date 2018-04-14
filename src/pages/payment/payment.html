@@ -6,13 +6,49 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>payment</ion-title>
+  <ion-navbar color='dark'>
+    <ion-title>订单回执</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-item>
+    <ion-label item-left color='primary'>订单号</ion-label>
+    <h2 ion-text item-right>{{ order['order_id'] }}</h2>
+  </ion-item>
+  <ion-list>
+    <ion-item>
+      <h2 ion-text item-right color='primary'>产品名称 | 数量</h2>
+    </ion-item>
+    <ion-item *ngFor='let item of orderProducts'>
+      <h2 ion-text item-right>{{ item['product'] }}</h2>
+    </ion-item>
+  </ion-list>
+  <ion-item>
+    <ion-label item-left color='primary'>产品总计</ion-label>
+    <h2 ion-text item-right>￥{{ order['product_total'] }}</h2>
+  </ion-item>
+  <ion-item>
+    <ion-label item-left color='primary'>运费</ion-label>
+    <h2 ion-text item-right>￥0</h2>
+  </ion-item>
+  <ion-item>
+    <ion-label item-left color='primary'>优惠</ion-label>
+    <h2 ion-text item-right>￥{{ order['final_payment'] - order['product_total'] }}</h2>
+  </ion-item>
+  <ion-item>
+    <ion-label item-left color='primary'>最终价</ion-label>
+    <h2 ion-text item-right>￥{{ order['final_payment'] }}</h2>
+  </ion-item>
+  <ion-item>
+    <ion-label item-left color='primary'>下单时间</ion-label>
+    <h2 ion-text item-right>{{ timeCreated }}</h2>
+  </ion-item>
+  <ion-item>
+    <ion-label item-left color='primary'>订单状态</ion-label>
+    <p ion-text item-right>{{ order['status'] }}</p>
+  </ion-item>
 
 </ion-content>

@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color='brand'>
     <ion-title>发起问诊</ion-title>
   </ion-navbar>
 
@@ -14,34 +14,52 @@
 
 
 <ion-content padding>
-  <ion-card>
-    <ion-item no-lines>
-      <input #inputcamera type="file" name="file" id="file" accept="image/*"/>
-      <label for="file">
-        <ion-icon name='add' style='zoom:4.0;'></ion-icon>
-      </label>
+
+  <ion-card *ngIf="displayCard()">
+    <ion-item *ngFor="let item of img" tappable (click)="displayImage(item)">
+      <img item-left [src]="item" style="width:40%; height:40%;"/>
+      <button item-right ion-button icon-only clear color='front' large (click)="remove(item)">
+        <ion-icon name="close"></ion-icon>
+      </button>
     </ion-item>
-
-
-    <ion-list no-lines *ngIf="displayCard()">
-      <ion-item *ngFor="let photo of img">
-        <img item-left [src]="photo" style="width:30%; height:30%" (click)="displayImage(photo)"/>
-
-        <button ion-button clear large icon-only item-right color="dark" (click)="remove(photo)">
-          <ion-icon name="trash"></ion-icon>
-        </button>
-      </ion-item>
-      <ion-item>
-        <h3>
-          有附加问题可以填写在框框中哦（选填）
-        </h3>
-        <textarea rows='5' [(ngModel)]='note'></textarea>
-        <button ion-button icon-start block round color='primary' (click)='upload()'>
-        <ion-icon name='cloud-upload'></ion-icon>
-          提交
-        </button>
-      </ion-item>
-    </ion-list>
+    <ion-item>
+      <textarea ion-text rows="4" placeholder="如有特殊问题或留言请输入" [(ngModel)]="note"></textarea>
+    </ion-item>
+    <div text-center>
+      <button ion-button round color='primary' (click)="upload()">
+        提交问诊
+      </button>
+    </div>
   </ion-card>
-
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color='brand' style="height:40px;">
+    <ion-grid>
+      <ion-row align-items-center>
+        <ion-col align-self-end>
+          <div text-center>
+            <button ion-button icon-only clear color='front' (click)="gotoHome()">
+              <ion-icon name="home"></ion-icon>
+            </button>
+          </div>
+        </ion-col>
+        <ion-col align-self-end>
+          <div text-center>
+            <input #inputcamera type="file" name="file" id="file" accept="image/*"/>
+            <label for="file">
+              <ion-icon name='add-circle' color='front' style='zoom:3.0;'></ion-icon>
+            </label>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div text-center>
+            <button ion-button icon-only clear color='front' (click)="gotoProfile()">
+              <ion-icon name="contact"></ion-icon>
+            </button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

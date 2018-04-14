@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
-import { CreateproductPage } from '../createproduct/createproduct';
+//import { CreateproductPage } from '../createproduct/createproduct';
 import { AuthProvider } from '../../providers/auth/auth';
 
 /**
@@ -29,7 +29,7 @@ export class ProductadminPage {
   }
 
   presentCreatePage() {
-    let modal = this.modalCtrl.create(CreateproductPage);
+    let modal = this.modalCtrl.create('CreateproductPage');
     modal.present();
   }
 

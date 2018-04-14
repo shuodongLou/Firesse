@@ -1,20 +1,24 @@
-import { Component } from '@angular/core';
-import { NavController, AlertController, NavParams } from 'ionic-angular';
+import { Component, ViewChild, NgZone } from '@angular/core';
+import { IonicPage, NavController, AlertController, NavParams, Content } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Storage } from '@ionic/storage';
 
-
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
 
-  role: any;
-  isLoggedIn: boolean;
+  public role:any;
+  public isLoggedIn: boolean;
+  public showHeader:boolean = false;
+
+  @ViewChild(Content) content: Content;
 
   constructor(public navCtrl: NavController,
               public storage: Storage,
+              public zone: NgZone,
               public alertCtrl: AlertController,
               public navParams: NavParams,
               public auth: AuthProvider) {
@@ -40,8 +44,9 @@ export class HomePage {
     if (this.isLoggedIn) {
       this.navCtrl.push("PhotoPage");
     } else {
-      this.navCtrl.push("SigninPage");
+      this.navCtrl.push("SigninPage", { 'target': 'PhotoPage' });
     }
+
   }
 
   isAdminLogged() {
@@ -93,5 +98,23 @@ export class HomePage {
     alert.present();
   }
 
+  ionViewDidLoad() {
+    this.content.ionScroll.subscribe((data)=>{
+
+      console.log('data: ', data);
+      let scrollTop = this.content.scrollTop;
+      console.log('scrollTop: ', scrollTop);
+      if (scrollTop > 280) {
+        this.zone.run(() => {
+          this.showHeader = true;
+        });
+      } else {
+        this.zone.run(() => {
+          this.showHeader = false;
+        });
+      }
+
+    });
+  }
 
 }

@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import 'rxjs/add/operator/map';
+//import { Observable } from 'rxjs/Observable';
+//import 'rxjs/add/operator/map';
 
 /*
   Generated class for the AuthProvider provider.
@@ -12,9 +13,15 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthProvider {
 
-  public server_url = 'http://192.168.1.6:8000/';
+  public server_url = 'http://192.168.0.102:8000/';
+  public acct_pk:number;
 
   constructor(public http: HttpClient, public storage: Storage) {
+    this.storage.get('pk').then((value:number) => {
+      this.acct_pk = value;
+    }).catch((err) => {
+      console.log('Err: in auth constructor - err: ', err);
+    });
   }
 
   createAccount(details){
@@ -299,17 +306,34 @@ export class AuthProvider {
     });
   }
 
-  updateProduct(reqPack) {
+  updateProduct(product) {
     return new Promise((resolve, reject) => {
       this.storage.get('token').then((value) => {
         let tokenStr = 'Token ' + value;
         let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
-        this.http.put(this.server_url + 'products/' + reqPack['id'], JSON.stringify(reqPack['product']), {headers})
+        this.http.put(this.server_url + 'products/' + product['id'], JSON.stringify(product), {headers})
           .subscribe((res) => {
             console.log('updated product successfully - res: ', res);
             resolve(res);
           }, (err) => {
             console.log('Err, in auth updateProduct - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  getProductById(pid) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr);
+        this.http.get(this.server_url + 'products/' + pid, {headers})
+          .subscribe((res) => {
+            console.log('got product - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err, in auth, getProductById - err: ', err);
             reject(err);
           });
       });
@@ -384,6 +408,23 @@ export class AuthProvider {
     });
   }
 
+  updateAgent(details, agent_id) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
+        this.http.put(this.server_url + 'agents/' + agent_id, JSON.stringify(details), {headers})
+          .subscribe((res) => {
+            console.log('updated agent data successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err: in auth updateAgent - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
   getAgentsByAccount(acct_id) {
     return new Promise((resolve, reject) => {
       this.storage.get('token').then((value) => {
@@ -429,6 +470,194 @@ export class AuthProvider {
             resolve(res);
           }, (err) => {
             console.log('there is no such fire code');
+            reject(err);
+          });
+      });
+    });
+  }
+
+  createOrder(details) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
+        this.http.post(this.server_url + 'orders/', JSON.stringify(details), {headers})
+          .subscribe((res) => {
+            console.log('Order has been created successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err: auth createOrder - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  getOrdersByAccount(acct_id) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr);
+        this.http.get(this.server_url + 'ordersbyaccount/' + acct_id, {headers})
+          .subscribe((res) => {
+            console.log('Got orders by acct_id successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err: auth getOrdersByAccount - err: ', err);
+            reject(err);
+          });
+
+      });
+    });
+  }
+
+  getAllOrders() {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr);
+        this.http.get(this.server_url + 'orders/', {headers})
+          .subscribe((res) => {
+            console.log('Got all orders successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err: auth getAllOrders - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  updateOrder(order) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
+        this.http.put(this.server_url + 'orders/' + order['id'], JSON.stringify(order), {headers})
+          .subscribe((res) => {
+            console.log('Got orders by acct_id successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err: auth getOrdersByAccount - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  createOrderProducts(reqObj) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
+        this.http.post(this.server_url + 'orderproducts/', JSON.stringify(reqObj), {headers})
+          .subscribe((res) => {
+            console.log('Order  products info has been created successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err: auth createOrderProducts - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  getOrderProductsById(order_id) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr);
+        this.http.get(this.server_url + 'orderproducts/' + order_id, {headers})
+          .subscribe((res) => {
+            console.log('Got order products info by order id successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err: auth getOrderProductsById - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  createArticle(article) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
+        this.http.post(this.server_url + 'articles/', JSON.stringify(article), {headers})
+          .subscribe((res) => {
+            console.log('Posted article successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err: auth createArticle - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  listArticles() {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr);
+        this.http.get(this.server_url + 'articles/', {headers})
+          .subscribe((res) => {
+            console.log('Got article list successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err: auth listArticles - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  getArticle(art_id) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr);
+        this.http.get(this.server_url + 'articles/' + art_id, {headers})
+          .subscribe((res) => {
+            console.log('Got article successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err: auth getArticle - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  updateArticle(article) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr).set('Content-Type', 'application/json');
+        this.http.put(this.server_url + 'articles/' + article['id'], JSON.stringify(article), {headers})
+          .subscribe((res) => {
+            console.log('Updated article successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err: auth updateArticle - err: ', err);
+            reject(err);
+          });
+      });
+    });
+  }
+
+  deleteArticle(art_id) {
+    return new Promise((resolve, reject) => {
+      this.storage.get('token').then((value) => {
+        let tokenStr = 'Token ' + value;
+        let headers = new HttpHeaders().set('Authorization', tokenStr);
+        this.http.delete(this.server_url + 'articles/' + art_id, {headers})
+          .subscribe((res) => {
+            console.log('Deleted article successfully - res: ', res);
+            resolve(res);
+          }, (err) => {
+            console.log('Err: auth deleteArticle - err: ', err);
             reject(err);
           });
       });

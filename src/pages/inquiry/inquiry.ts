@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
-import { InquirydetailPage } from '../inquirydetail/inquirydetail';
+//import { InquirydetailPage } from '../inquirydetail/inquirydetail';
 
 /**
  * Generated class for the InquiryPage page.
@@ -77,7 +77,7 @@ export class InquiryPage {
   }
 
   presentDetailModal(inquiryObj) {
-    let modal = this.modalCtrl.create(InquirydetailPage, {'obj': inquiryObj});
+    let modal = this.modalCtrl.create('InquirydetailPage', {'obj': inquiryObj});
     modal.present();
   }
 

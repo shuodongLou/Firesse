@@ -27,7 +27,7 @@
     <ion-card-content>
       <ion-list>
         <ion-item *ngFor="let pathname of photopaths">
-          <img [src]=pathname style="width:30%; height:30%" (click)="displayImage(pathname)"/>
+          <img [src]=pathname style="width:30%; height:30%" tappable (click)="displayImage(pathname)"/>
         </ion-item>
       </ion-list>
       <p ion-text>{{note}}</p>

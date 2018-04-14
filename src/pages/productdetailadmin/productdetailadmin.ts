@@ -29,6 +29,8 @@ export class ProductdetailadminPage {
   public usage:string;
   public notes:string;
 
+  public productObj:any;
+
   public id:number;
 
   @ViewChild('inputcamera') cameraInput: ElementRef;
@@ -43,21 +45,8 @@ export class ProductdetailadminPage {
               public loadingCtrl: LoadingController,
               public alertCtrl: AlertController,
               public navParams: NavParams) {
-    let product = this.navParams.get('product');
-    this.productName = product['name'];
-    this.productNameE = product['name_e'];
-    this.volume = product['volume'];
-    this.productDesc = product['desc'];
-    this.price = product['price'];
-    this.inventory = product['inventory'];
-    this.series = product['series'];
-    this.status = product['status'];
-    this.effects = product['effects'];
-    this.ingredients = product['ingredients'];
-    this.usage = product['usage'];
-    this.notes = product['notes'];
+    this.productObj = this.navParams.get('product');
 
-    this.id = product['id'];
   }
 
   submit() {
@@ -65,31 +54,12 @@ export class ProductdetailadminPage {
       content: '更新中...'
     });
     loading.present();
-
-    let reqPack = {};
-    reqPack['id'] = this.id;
-    let reqObj = {};
-    reqObj['name'] = this.productName;
-    reqObj['name_e'] = this.productNameE;
-    reqObj['volume'] = this.volume;
-    reqObj['desc'] = this.productDesc;
-    reqObj['price'] = this.price;
-    reqObj['inventory'] = this.inventory;
-    reqObj['series'] = this.series;
-    reqObj['status'] = this.status;
-    reqObj['effects'] = this.effects;
-    reqObj['ingredients'] = this.ingredients;
-    reqObj['usage'] = this.usage;
-    reqObj['notes'] = this.notes;
-    reqPack['product'] = reqObj;
-
-    console.log('reqPack: ', reqPack);
-
-    this.auth.updateProduct(reqPack).then((res) => {
+    console.log('Debug: productObj: ', this.productObj);
+    this.auth.updateProduct(this.productObj).then((res) => {
       console.log('product details updated successfully - res: ', res);
       if (this.imgs_add.length > 0) {
         let imgReq = {
-          'product': this.id,
+          'product': this.productObj['id'],
           'image': this.imgs_add
         };
         this.auth.uploadProductImages(imgReq);
@@ -142,7 +112,7 @@ export class ProductdetailadminPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductdetailadminPage');
-    this.auth.getProductImageListByProduct(this.id).then((res) => {
+    this.auth.getProductImageListByProduct(this.productObj['id']).then((res) => {
       console.log('got images for product...');
       for (let i = 0; i < (<any>res).length; i++) {
         let imgObj = {

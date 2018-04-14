@@ -1,0 +1,68 @@
+<!--
+  Generated template for the OrderdetailsadminPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>订单明细操作</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item no-lines>
+    <ion-label item-left color='primary'>订单号</ion-label>
+    <h2 ion-text item-right>{{ order['order_id'] }}</h2>
+  </ion-item>
+  <ion-item no-lines>
+    <ion-label item-left color='primary'>下单时间</ion-label>
+    <h2 ion-text item-right>{{ time_c }}</h2>
+  </ion-item>
+  <ion-item no-lines>
+    <ion-label item-left color='primary'>客户</ion-label>
+    <h2 ion-text item-right>{{ order['cus_name'] }}</h2>
+  </ion-item>
+  <ion-item no-lines>
+    <ion-label item-left color='primary'>手机</ion-label>
+    <h2 ion-text item-right>{{ order['cus_phone'] }}</h2>
+  </ion-item>
+  <ion-item no-lines>
+    <h2 ion-text item-left color='primary'>地址</h2>
+    <h2 ion-text item-right>{{ order['cus_address'] }}</h2>
+  </ion-item>
+  <ion-list>
+    <ion-item>
+      <ion-label item-right color='primary'>产品名称 | 数量</ion-label>
+    </ion-item>
+    <ion-item *ngFor='let item of orderProducts'>
+      <h2 ion-text item-right>{{ item['product'] }}</h2>
+    </ion-item>
+  </ion-list>
+  <ion-item no-lines>
+    <ion-label item-left color='primary'>总金额（￥）</ion-label>
+    <ion-input type='number' item-right id='input' [(ngModel)]="order.final_payment"></ion-input>
+  </ion-item>
+  <ion-item no-lines>
+    <ion-label item-left color='primary'>运费（￥）</ion-label>
+    <ion-input type='number' ion-text item-right [(ngModel)]="order.delivery_fee"></ion-input>
+  </ion-item>
+  <ion-item no-lines>
+    <ion-label item-left color='primary'>状态</ion-label>
+    <ion-select item-right [(ngModel)]="order.status" style="max-width: 100%;">
+      <ion-option>已下单</ion-option>
+      <ion-option>已付款</ion-option>
+      <ion-option>已发货</ion-option>
+      <ion-option>已结算</ion-option>
+      <ion-option>申请退货</ion-option>
+      <ion-option>已取消</ion-option>
+    </ion-select>
+  </ion-item>
+  <div text-center>
+    <button ion-button round (click)="updateOrder()">更新订单信息</button>
+  </div>
+
+</ion-content>

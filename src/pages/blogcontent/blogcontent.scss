@@ -1,0 +1,36 @@
+page-blogcontent {
+  #content {
+    text-indent: 2em;
+    white-space: pre-wrap;
+    font-size: 16px;
+    line-height: 2.5;
+  },
+
+  #toolbar {
+    height:25px;
+  },
+
+  #img-container {
+    position:absolute;
+    margin-bottom: 300;
+    width: 100%;
+    left:0;
+    top: 0;
+    margin: 0 auto;
+    width: 100vw;
+    overflow: hidden;
+  },
+
+  #pad {
+    padding-top: 70%;
+  },
+
+  #cover {
+    display: block;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 0;
+  }
+
+}

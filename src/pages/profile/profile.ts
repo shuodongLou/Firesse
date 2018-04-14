@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, ModalController, LoadingController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
+import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
-import { ReceiptinfoPage } from '../receiptinfo/receiptinfo';
+//import { ReceiptinfoPage } from '../receiptinfo/receiptinfo';
 
 /**
  * Generated class for the ProfilePage page.
@@ -31,6 +32,7 @@ export class ProfilePage {
   public province: any;
   public city: any;
   public county: any;
+  public points: number = 0;
 
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
@@ -48,6 +50,7 @@ export class ProfilePage {
       this.user = res['user'];
       this.date = res['birthday'];
       this.sex = res['sex'];
+      this.points = res['points'];
       console.log(this.user);
       loading.dismiss();
     }).catch((err) => {
@@ -58,7 +61,7 @@ export class ProfilePage {
 
   presentAddressModal() {
     console.log('in presentAddressModal()');
-    let modal = this.modalCtrl.create(ReceiptinfoPage);
+    let modal = this.modalCtrl.create("ReceiptinfoPage");
     modal.present();
   }
 
@@ -100,6 +103,14 @@ export class ProfilePage {
 
   gotoInquiries() {
     this.navCtrl.push("InquiryPage", { 'acc_id': this.pk });
+  }
+  gotoOrders() {
+    this.navCtrl.push("OrderlistPage");
+  }
+
+  logout() {
+    this.auth.logout();
+    this.navCtrl.setRoot(HomePage);
   }
 
   ionViewWillEnter() {

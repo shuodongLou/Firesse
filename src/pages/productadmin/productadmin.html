@@ -18,7 +18,7 @@
     上架新产品
   </button>
 
-  <ion-item *ngFor="let item of items" (click)='gotoProductDetail(item)'>
+  <ion-item *ngFor="let item of items" tappable (click)='gotoProductDetail(item)'>
     <ion-label>{{item.name}}</ion-label>
   </ion-item>
 

@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color='brand'>
     <ion-title>订单确认</ion-title>
   </ion-navbar>
 
@@ -14,6 +14,9 @@
 
 
 <ion-content padding>
+  <div text-center>
+    <ion-label style="font-weight: bolder; font-size: 20px;">本订单免邮费</ion-label>
+  </div>
   <div text-center *ngIf='!destReady' id='destGrid'>
     <button ion-button outline small color='danger' style="letter-spacing: 2px;" (click)="changeDest()">
       <ion-icon name='add'></ion-icon>
@@ -56,7 +59,7 @@
     <ion-grid>
       <ion-row>
         <ion-col col-4>
-          <img [src]="item['cover']" (press)="pressEvent($event, item['cover'])"/>
+          <img [src]="item['cover']"/>
         </ion-col>
         <ion-col>
           <ion-list>
@@ -81,11 +84,7 @@
     <ion-label item-left>优惠减免：</ion-label>
     <h2 ion-text item-right style="font-weight: bold;">-￥{{ discount }}</h2>
   </ion-item>
-  <ion-item style="border-bottom: 1px solid grey; border-bottom-style: double;">
-    <ion-label item-left>运费：</ion-label>
-    <h2 ion-text item-right style="font-weight: bold;">￥{{ deliveryFee }}</h2>
-  </ion-item>
-  <ion-item>
+  <ion-item style="border-top: 1px solid grey; border-top-style: double;">
     <ion-label item-left>总计：</ion-label>
     <h1 ion-text item-right style="font-weight: bold;">￥{{ finalPayment }}</h1>
   </ion-item>
@@ -96,7 +95,7 @@
   <ion-toolbar>
     <ion-item start no-lines>总金额：￥{{ finalPayment }}</ion-item>
     <ion-buttons right>
-      <ion-item color='danger' (click)="placeOrder()">提交订单</ion-item>
+      <ion-item color='danger' tappable (click)="placeOrder()">提交订单</ion-item>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

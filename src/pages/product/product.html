@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar color='dark'>
+  <ion-navbar color='brand'>
     <ion-title>产品详情</ion-title>
     <ion-buttons end>
       <button ion-button (click)="gotoCart()">
@@ -22,19 +22,19 @@
 <ion-content padding>
 
   <ion-item no-lines>
-    <ion-slides loop='true' pager='true' effect='cube'>
-      <ion-slide *ngFor="let item of product['images']">
+    <ion-slides loop='true' pager='true' effect='cube' *ngIf="images.length > 0" autoplay='5000' speed='500'>
+      <ion-slide *ngFor="let item of images">
         <img [src]="this.auth.server_url + 'media/' + item['image']" />
       </ion-slide>
     </ion-slides>
   </ion-item>
   <ion-item no-lines padding>
-    <h1 ion-text style="text-align: center;">{{ product['info']['name_e'] }}</h1>
-    <h2 ion-text style="text-align: center; letter-spacing: 10px;">{{ product['info']['name'] }}</h2>
-    <h2 ion-text style="text-align: center;">{{ product['info']['volume'] }}</h2>
+    <h1 ion-text style="text-align: center;">{{ product?.name_e }}</h1>
+    <h2 ion-text style="text-align: center; letter-spacing: 10px;">{{ product?.name }}</h2>
+    <h2 ion-text style="text-align: center;">{{ product?.volume }}</h2>
   </ion-item>
   <div text-center>
-    <button ion-button round color='mei' style="letter-spacing: 3px; width: 50%;">快捷购买</button>
+    <button ion-button round color='mei' style="letter-spacing: 3px; width: 50%;" (click)="buyNow()">立即购买</button>
   </div>
   <div text-center>
     <button ion-button round color='primary' style="letter-spacing: 3px; width: 50%;" (click)="addToCart()">
@@ -44,17 +44,17 @@
   <div class="spacer" style="height:40px;"></div>
   <ion-item-divider text-center style="font-size:20px; font-weight:bolder;">描述</ion-item-divider>
   <ion-item no-lines>
-    <p style="white-space:pre-wrap; text-align:center;">{{ product['info']['desc'] }}</p>
+    <p style="white-space:pre-wrap; text-align:center;">{{ product?.desc }}</p>
   </ion-item>
   <div class="spacer" style="height:40px;"></div>
   <ion-item-divider text-center style="font-size:20px; font-weight:bolder;">功效</ion-item-divider>
   <ion-item no-lines>
-    <p style="white-space:pre-wrap; text-align:center;">{{ product['info']['effects'] }}</p>
+    <p style="white-space:pre-wrap; text-align:center;">{{ product?.effects }}</p>
   </ion-item>
   <div class="spacer" style="height:40px;"></div>
   <ion-item-divider text-center style="font-size:20px; font-weight:bolder;">使用方法</ion-item-divider>
   <ion-item no-lines>
-    <p style="white-space:pre-wrap; text-align:center;">{{ product['info']['usage'] }}</p>
+    <p style="white-space:pre-wrap; text-align:center;">{{ product?.usage }}</p>
   </ion-item>
   <div class="spacer" style="height:40px;"></div>
   <div text-center style="width:100%;">
@@ -66,3 +66,33 @@
     </ion-item>
   </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar style="height:25px;" color='brand'>
+    <ion-grid>
+      <ion-row align-items-center>
+        <ion-col>
+          <div text-center>
+            <button ion-button clear icon-only color='front' (click)="gotoHome()">
+              <ion-icon name="home"></ion-icon>
+            </button>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div text-center>
+            <button ion-button clear icon-only color='front' (click)="gotoPhoto()">
+              <ion-icon name="camera"></ion-icon>
+            </button>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div text-center>
+            <button ion-button clear icon-only color='front' (click)="gotoProfile()">
+              <ion-icon name="contact"></ion-icon>
+            </button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

@@ -28,6 +28,13 @@
       <button ion-item (click)="gotoSearchMember('accounts')">
         会员管理
       </button>
+      <button ion-item (click)="gotoOrders()">
+        订单管理
+        <ion-badge item-right color='danger' *ngIf="n > 0">{{ n }}</ion-badge>
+      </button>
+      <button ion-item (click)="gotoBlog()">
+        博客管理
+      </button>
     </ion-list>
   </ion-card>
 

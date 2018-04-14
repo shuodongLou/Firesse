@@ -1,0 +1,30 @@
+<!--
+  Generated template for the OrderlistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>我的订单</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card *ngFor="let order of orders" tappable (click)="gotoPayment(order)">
+    <ion-item no-lines>
+      <h2 ion-text item-left>订单号：{{ order['order_id'] }}</h2>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label item-left color='secondary'>￥{{ order['final_payment'] }}</ion-label>
+      <ion-label item-right>{{ order['status'] }}</ion-label>
+    </ion-item>
+    <ion-item no-lines>
+      <p ion-text item-right>{{ order['time_created'].slice(0, 10) }}</p>
+    </ion-item>
+  </ion-card>
+
+</ion-content>

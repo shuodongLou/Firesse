@@ -20,6 +20,7 @@ export class SignupPage {
 
     authForm: FormGroup;
     failFlagCreate: boolean = false;
+    public target:string;
 
     constructor(public navCtrl: NavController,
                 public navParams: NavParams,
@@ -52,21 +53,18 @@ export class SignupPage {
         console.log("before createAccount");
 
         this.auth.createAccount(details).then((res) => {
-            console.log("Already authorised...");
-
-        }).then(() => {
-            this.auth.login(details).then((res) => {
-                console.log("Logged in...");
-                console.log(res);
-                loading.dismiss();
-                //this.navCtrl.setRoot(HomePage);
-                this.navCtrl.pop();
-            });
-        }).catch((step) => {
+          console.log("Already authorised...");
+          return this.auth.login(details)
+        }).then((res) => {
+          console.log("Logged in...");
+          console.log(res);
+          loading.dismiss();
+          this.navCtrl.pop();
+      }).catch((step) => {
           console.log('error catched');
           this.failFlagCreate = true;
           loading.dismiss();
-        });
+      });
 
     }
 
@@ -74,11 +72,18 @@ export class SignupPage {
     gotoLogin() {
       console.log('goto');
       this.navCtrl.pop();
-      this.navCtrl.push('SigninPage');
+      if (this.target == undefined) {
+        this.navCtrl.push('SigninPage');
+      } else if (this.target == 'OrderPage') {
+        this.navCtrl.push('SigninPage', { 'target': 'OrderPage', 'purchase': this.navParams.get('purchase') });
+      } else {
+        this.navCtrl.push('SigninPage', { 'target': this.target });
+      }
     }
 
     ionViewDidLoad() {
-        console.log('ionViewDidLoad SignupPage');
+      console.log('ionViewDidLoad SignupPage');
+      this.target = this.navParams.get('target');
     }
 
 }

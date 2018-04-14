@@ -28,7 +28,8 @@ export class ProductsPage {
     this.navCtrl.push('CartPage');
   }
   gotoProduct(product) {
-    this.navCtrl.push('ProductPage', { 'product': product });
+    console.log('products - product_id: ', product['info']['id']);
+    this.navCtrl.push('ProductPage', { 'product_id': product['info']['id'] });
   }
 
   calcN(items) {

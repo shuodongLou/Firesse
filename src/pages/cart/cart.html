@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar color='dark'>
+  <ion-navbar color='brand'>
     <ion-title>我的护肤包</ion-title>
   </ion-navbar>
 
@@ -79,7 +79,7 @@
   <ion-toolbar>
     <ion-item start no-lines>总金额（不含运费）：￥{{ total }}</ion-item>
     <ion-buttons right>
-      <ion-item color='danger' (click)="confirmOrder()">安全结算</ion-item>
+      <ion-item color='danger' tappable (click)="confirmOrder()">安全结算</ion-item>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

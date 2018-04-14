@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar color='dark'>
+  <ion-navbar color='brand'>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -22,20 +22,24 @@
 
 
 <ion-content padding id='bg'>
+  <div text-center>
+    <ion-label color='bright' style="font-weight: bold; font-size: 18px;">以下产品全国包邮</ion-label>
+  </div>
   <ion-card *ngFor="let product of products">
-    <ion-slides #myslides *ngIf="product['images']" loop='true' pager='true' effect='cube' (click)="gotoProduct(product)">
+    <ion-slides #myslides *ngIf="product['images'] && product['images'].length > 0 "
+      loop='true' pager='true' effect='cube' autoplay="5000" speed= '500' tappable (click)="gotoProduct(product)">
       <ion-slide *ngFor="let image of product['images']">
         <img [src]="this.auth.server_url + 'media/' + image['image']"/>
       </ion-slide>
     </ion-slides>
-    <ion-item style="margin-top: 30px;" (click)="gotoProduct(product)">
+    <ion-item style="margin-top: 30px;" tappable (click)="gotoProduct(product)">
       <h2 item-left ion-text>{{product['info']['name']}}</h2>
       <h2 item-right ion-text>￥{{product['info']['price']}}</h2>
     </ion-item>
-    <ion-item (click)="gotoProduct(product)">
+    <ion-item tappable (click)="gotoProduct(product)">
       <h3 ion-text item-left>{{product['info']['volume']}}</h3>
     </ion-item>
-    <ion-item (click)="gotoProduct(product)">
+    <ion-item tappable (click)="gotoProduct(product)">
       <p ion-text>{{product['info']['desc']}}</p>
     </ion-item>
     <ion-item>

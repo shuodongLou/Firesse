@@ -1,8 +1,34 @@
 page-home {
 
-  div {
-    margin-left: auto;
-    margin-right: auto;
+  #first-block {
+    //position:fixed;
+    left:0;
+    right:0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 80%;
+  },
+
+  #imgnav {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  },
+
+  #start-btn {
+    position: absolute;
+    top: 65%;
+    width: 150px;
+    left: 0;
+    right: 0;
+    margin: auto;
+  },
+
+  #bottom-section {
+  },
+
+  #bottom-logo {
+    padding-top: 50px;
   }
 
 }

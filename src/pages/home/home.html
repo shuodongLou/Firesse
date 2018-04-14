@@ -1,10 +1,10 @@
 <ion-header>
-  <ion-navbar color="dark">
+  <ion-navbar color="brand" *ngIf='showHeader'>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-item color='dark' no-lines>
-      <img item-left src="assets/img/firesse_log_white.png" style="width: 70%; height: 70%;"/>
+    <ion-item color='brand' no-lines>
+      <img item-left src="assets/img/firesse_log_white.png" style="max-width: 160px; height: auto;" alt="Firesse 燃典 logo"/>
     </ion-item>
     <ion-buttons end *ngIf=isAdminLogged()>
       <button ion-button small block (click)="gotoAdmin()">
@@ -12,26 +12,121 @@
       </button>
     </ion-buttons>
     <ion-buttons end *ngIf=!this.isLoggedIn>
-      <button ion-button large (click)="gotoSignin()">
-        <ion-icon name="person"></ion-icon>
+      <button ion-button large color="front" (click)="gotoSignin()">
+        登录
       </button>
-      <button ion-button large outline color='bright' (click)="gotoSignup()">
-        <ion-icon name="person-add"></ion-icon>
+      <button ion-button large outline color='front' (click)="gotoSignup()">
+        注册
       </button>
     </ion-buttons>
     <ion-buttons end *ngIf=this.isLoggedIn>
-      <button ion-button icon-start small color="light" (click)="gotoProfile()">
+      <button ion-button icon-start small color="front" (click)="gotoProfile()">
         <ion-icon name="contact"></ion-icon>
       </button>
-      <button ion-button icon-start small color="light" (click)="logoutAlert()">
+      <button ion-button icon-start small color="front" (click)="logoutAlert()">
         <ion-icon name="log-out"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <div text-center>
-    <button ion-button round color='primary' (click)="startJourney()">开始体验</button>
+<ion-content>
+  <div id='first-block' style="background-image: url('../../assets/img/nyc_sunny.jpg');">
+    <ion-grid>
+      <ion-row id='imgnav'>
+        <ion-col>
+          <ion-navbar transparent>
+          <button ion-button menuToggle color='front'>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+          <ion-item no-lines style="background-color: rgba(0, 0, 0, 0);">
+            <img item-left src="assets/img/firesse_log_white.png" style="max-width: 160px; height: auto;" alt="Firesse 燃典 logo"/>
+          </ion-item>
+          <ion-buttons end *ngIf=isAdminLogged()>
+            <button ion-button small block color='front' (click)="gotoAdmin()">
+              <ion-icon name="settings"></ion-icon>
+            </button>
+          </ion-buttons>
+          <ion-buttons end *ngIf=!this.isLoggedIn>
+            <button ion-button large color="front" (click)="gotoSignin()">
+              登录
+            </button>
+            <button ion-button large outline color='front' (click)="gotoSignup()">
+              注册
+            </button>
+          </ion-buttons>
+          <ion-buttons end *ngIf=this.isLoggedIn>
+            <button ion-button icon-start small color="front" (click)="gotoProfile()">
+              <ion-icon name="contact"></ion-icon>
+            </button>
+            <button ion-button icon-start small color="front" (click)="logoutAlert()">
+              <ion-icon name="log-out"></ion-icon>
+            </button>
+          </ion-buttons>
+        </ion-navbar>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <button id='start-btn' ion-button round color='primary' (click)="startJourney()">开始体验</button>
+
   </div>
+  <div text-center>
+    <h1>燃典是一套问题型皮肤</h1>
+    <h1>护理解决方案</h1>
+    <h1>&</h1>
+    <h1>集成远程问诊</h1>
+    <h1>皮肤管理服务平台</h1>
+  </div>
+
+  <ion-item id='bottom-section' color='brand'>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <p ion-text style="font-weight: bold;">账户</p>
+        </ion-col>
+        <ion-col>
+          <p ion-text style="font-weight: bold;">公司</p>
+        </ion-col>
+        <ion-col>
+          <p ion-text style="font-weight: bold;">帮助</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p ion-text color='front' (click)='gotoSignup()'>注册</p>
+        </ion-col>
+        <ion-col>
+          <p ion-text color='front'>关于我们</p>
+        </ion-col>
+        <ion-col>
+          <p ion-text color='front'>FAQ</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p ion-text color='front' (click)='gotoSignin()'>登陆</p>
+        </ion-col>
+        <ion-col>
+          <p ion-text color='front'>合伙人</p>
+        </ion-col>
+        <ion-col>
+          <p ion-text color='front'>客服</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p ion-text color='front' (click)='gotoSignin()'>个人信息</p>
+        </ion-col>
+        <ion-col>
+          <p ion-text color='front'>合作</p>
+        </ion-col>
+        <ion-col>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div text-center id='bottom-logo'>
+      <img item-left src="assets/img/firesse_log_white.png" style="max-width: 200px; height: auto;" alt="Firesse 燃典 logo"/>
+      <p>© 2018 All rights reserved. Firesse 燃典</p>
+    </div>
+  </ion-item>
 </ion-content>
