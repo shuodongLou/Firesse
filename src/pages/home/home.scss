@@ -1,7 +1,7 @@
 page-home {
 
   #first-block {
-    //position:fixed;
+    background-image: url('../../assets/img/nyc_sunny.jpg');
     left:0;
     right:0;
     background-size: cover;
@@ -22,13 +22,6 @@ page-home {
     left: 0;
     right: 0;
     margin: auto;
-  },
-
-  #bottom-section {
-  },
-
-  #bottom-logo {
-    padding-top: 50px;
   }
 
 }

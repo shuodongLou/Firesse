@@ -13,7 +13,7 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class AuthProvider {
 
-  public server_url = 'http://192.168.0.102:8000/';
+  public server_url = 'http://39.104.104.241:8001/';
   public acct_pk:number;
 
   constructor(public http: HttpClient, public storage: Storage) {

@@ -118,7 +118,7 @@ export class ReceiptinfoPage {
   dismiss() {
     console.log('before alert');
     let alert = this.alertCtrl.create({
-      message: '您确定放弃此次编辑吗？',
+      subTitle: '您确定放弃此次编辑吗？',
       buttons: [
         {
           text: '取消',

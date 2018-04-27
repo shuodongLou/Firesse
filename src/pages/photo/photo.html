@@ -4,6 +4,7 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+<!--
 <ion-header>
 
   <ion-navbar color='brand'>
@@ -11,14 +12,15 @@
   </ion-navbar>
 
 </ion-header>
+-->
 
 
 <ion-content padding>
 
-  <ion-card *ngIf="displayCard()">
+  <ion-card *ngIf=false style="margin-left: auto; margin-right: auto;">
     <ion-item *ngFor="let item of img" tappable (click)="displayImage(item)">
       <img item-left [src]="item" style="width:40%; height:40%;"/>
-      <button item-right ion-button icon-only clear color='front' large (click)="remove(item)">
+      <button item-right ion-button icon-only clear color='dark' large (click)="remove(item)">
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-item>
@@ -31,7 +33,161 @@
       </button>
     </div>
   </ion-card>
+
+  <ion-slides pager paginationType='progress'>
+    <ion-slide>
+      <ion-card style="height: 450px;">
+        <ion-row style="height: 70%;" justify-content-center>
+          <ion-col col-auto>
+            <ion-item no-lines *ngIf='hasimg[0]'>
+              <img [src]="img[0]" style="height:300px; width: auto;"/>
+            </ion-item>
+            <ion-item no-lines *ngIf='!hasimg[0]' style="text-align: center;">
+              <h1>第一步</h1>
+              <br><br>
+              <h2>正面照</h2>
+              <br>
+              <h3 style="white-space: pre-wrap;">请上传卸妆后不戴眼镜和帽子的正面清晰照片，尽量让脸部占据大部分空间。如下图：</h3>
+              <br>
+              <div text-center>
+                <img src='../../assets/img/example.jpg' id='example-img'/>
+              </div>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row align-items-center>
+          <ion-col></ion-col>
+          <ion-col>
+            <div text-center>
+              <input #inputcamera type="file" name="file" id="file" accept="image/*"/>
+              <label for="file">
+                <ion-icon name='add-circle' color='primary' style='zoom:5.0;'></ion-icon>
+              </label>
+            </div>
+          </ion-col>
+          <ion-col>
+            <button ion-button color='brand' outline [disabled]='!debutton()' (click)='slideToNext()'>
+              下一步
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-card style="height: 500px; margin: 0;">
+        <ion-row style="height: 70%;" justify-content-center>
+          <ion-col col-auto>
+            <ion-item no-lines *ngIf='hasimg[1]'>
+              <img [src]="img[1]" style="height:300px; width: auto;"/>
+            </ion-item>
+            <ion-item no-lines *ngIf='!hasimg[1]' style="text-align: center;">
+              <h1>第二步</h1>
+              <br><br>
+              <h2>侧面照（一）</h2>
+              <br>
+              <h3 style="white-space: pre-wrap;">请上传脸部向左（或右）旋转45度左右的清晰卸妆照片。注意：为了判断效果，请不要戴帽子或眼镜，不要让头发遮挡面部。</h3>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row align-items-center>
+          <ion-col>
+            <button ion-button color='brand' outline (click)='slideToPrev()'>
+              上一步
+            </button>
+          </ion-col>
+          <ion-col>
+            <div text-center>
+              <input #inputcamera type="file" name="file" id="file" accept="image/*"/>
+              <label for="file">
+                <ion-icon name='add-circle' color='primary' style='zoom:5.0;'></ion-icon>
+              </label>
+            </div>
+          </ion-col>
+          <ion-col>
+            <button ion-button color='brand' outline [disabled]='!debutton()' (click)='slideToNext()'>
+              下一步
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-card style="height: 500px; margin: 0;">
+        <ion-row style="height: 70%;" justify-content-center>
+          <ion-col col-auto>
+            <ion-item no-lines *ngIf='hasimg[2]'>
+              <img [src]="img[2]" style="height:300px; width: auto;"/>
+            </ion-item>
+            <ion-item no-lines *ngIf='!hasimg[2]' style="text-align: center;">
+              <h1>第三步</h1>
+              <br><br>
+              <h2>侧面照（二）</h2>
+              <br>
+              <h3 style="white-space: pre-wrap;">请上传脸部向右（或左，与上一步相反的方向）旋转45度左右的清晰卸妆照片。注意：为了判断效果，请不要戴帽子或眼镜，不要让头发遮挡面部。</h3>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row align-items-center>
+          <ion-col>
+            <button ion-button color='brand' outline (click)='slideToPrev()'>
+              上一步
+            </button>
+          </ion-col>
+          <ion-col>
+            <div text-center>
+              <input #inputcamera type="file" name="file" id="file" accept="image/*"/>
+              <label for="file">
+                <ion-icon name='add-circle' color='primary' style='zoom:5.0;'></ion-icon>
+              </label>
+            </div>
+          </ion-col>
+          <ion-col>
+            <button ion-button color='brand' outline [disabled]='!debutton()' (click)='slideToNext()'>
+              下一步
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-card style="height: 500px; margin: 0;">
+        <ion-row style="height: 70%;" justify-content-center>
+          <ion-col>
+            <ion-item no-lines style="text-align: center;">
+              <h1>第四步</h1>
+              <br><br>
+              <h2>附加留言/提问（可选填）</h2>
+              <br>
+            </ion-item>
+            <textarea ion-text rows="7" placeholder="如有特殊问题或留言请输入" [(ngModel)]="note"></textarea>
+          </ion-col>
+        </ion-row>
+        <ion-row align-items-center>
+          <ion-col>
+            <button ion-button color='brand' outline (click)='slideToPrev()'>
+              上一步
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button round color='primary' (click)="upload()">
+              提交问诊
+            </button>
+          </ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+
+
 </ion-content>
+
 
 <ion-footer>
   <ion-toolbar color='brand' style="height:40px;">
@@ -45,12 +201,6 @@
           </div>
         </ion-col>
         <ion-col align-self-end>
-          <div text-center>
-            <input #inputcamera type="file" name="file" id="file" accept="image/*"/>
-            <label for="file">
-              <ion-icon name='add-circle' color='front' style='zoom:3.0;'></ion-icon>
-            </label>
-          </div>
         </ion-col>
         <ion-col>
           <div text-center>

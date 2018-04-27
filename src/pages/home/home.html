@@ -1,10 +1,25 @@
-<ion-header>
-  <ion-navbar color="brand" *ngIf='showHeader'>
+<ion-header *ngIf='showHeader'>
+  <style>
+    .top-logo {
+      max-width: 160px; height: auto;
+    }
+  </style>
+  <style>
+    .bottom-logo {
+      padding-top: 50px;
+    }
+  </style>
+  <style>
+    .bottom-logo-img {
+      max-width: 200px; height: auto;
+    }
+  </style>
+  <ion-navbar color="brand">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-item color='brand' no-lines>
-      <img item-left src="assets/img/firesse_log_white.png" style="max-width: 160px; height: auto;" alt="Firesse 燃典 logo"/>
+      <img item-left src="assets/img/firesse_log_white.png" class='top-logo' alt="Firesse 燃典 logo"/>
     </ion-item>
     <ion-buttons end *ngIf=isAdminLogged()>
       <button ion-button small block (click)="gotoAdmin()">
@@ -31,7 +46,7 @@
 </ion-header>
 
 <ion-content>
-  <div id='first-block' style="background-image: url('../../assets/img/nyc_sunny.jpg');">
+  <div id='first-block'>
     <ion-grid>
       <ion-row id='imgnav'>
         <ion-col>
@@ -40,7 +55,7 @@
             <ion-icon name="menu"></ion-icon>
           </button>
           <ion-item no-lines style="background-color: rgba(0, 0, 0, 0);">
-            <img item-left src="assets/img/firesse_log_white.png" style="max-width: 160px; height: auto;" alt="Firesse 燃典 logo"/>
+            <img item-left src="assets/img/firesse_log_white.png" class='top-logo' alt="Firesse 燃典 logo"/>
           </ion-item>
           <ion-buttons end *ngIf=isAdminLogged()>
             <button ion-button small block color='front' (click)="gotoAdmin()">
@@ -124,8 +139,8 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <div text-center id='bottom-logo'>
-      <img item-left src="assets/img/firesse_log_white.png" style="max-width: 200px; height: auto;" alt="Firesse 燃典 logo"/>
+    <div text-center class='bottom-logo'>
+      <img item-left src="assets/img/firesse_log_white.png" class='bottom-logo-img' alt="Firesse 燃典 logo"/>
       <p>© 2018 All rights reserved. Firesse 燃典</p>
     </div>
   </ion-item>

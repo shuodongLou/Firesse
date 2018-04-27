@@ -41,12 +41,7 @@ export class HomePage {
   }
 
   startJourney() {
-    if (this.isLoggedIn) {
-      this.navCtrl.push("PhotoPage");
-    } else {
-      this.navCtrl.push("SigninPage", { 'target': 'PhotoPage' });
-    }
-
+    this.navCtrl.push("PhotoPage");
   }
 
   isAdminLogged() {
@@ -107,10 +102,12 @@ export class HomePage {
       if (scrollTop > 280) {
         this.zone.run(() => {
           this.showHeader = true;
+          this.content.resize();
         });
       } else {
         this.zone.run(() => {
           this.showHeader = false;
+          this.content.resize();
         });
       }
 

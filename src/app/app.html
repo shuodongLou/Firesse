@@ -1,8 +1,15 @@
+<html>
+<head>
+  <style>
+    .pic {
+      display:block;width:100%;height:auto;margin-left:auto;margin-right:auto;
+    }
+  </style>
+</head>
+
 <ion-menu [content]="content" color='brand2'>
   <ion-content>
-    <div class="spacer" style="width:268px;height:21px;" id="menu-spacer1"></div>
-    <img src="assets/img/SaVy88aWQqOAMfOxEdGR_daniel-frank-201417.jpg" style="display:block;width:100%;height:auto;margin-left:auto;margin-right:auto;" />
-    <div class="spacer" style="width:268px;height:21px;" id="menu-spacer2"></div>
+    <img src="assets/img/c_logo_bright.png" class='pic' />
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
@@ -14,3 +21,5 @@
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+
+</html>

@@ -65,9 +65,10 @@ export class SigninPage {
             this.navCtrl.remove(index);
             this.navCtrl.push(this.target, { 'purchase': this.navParams.get('purchase') });
           } else {
-            const index = this.viewCtrl.index;
-            this.navCtrl.remove(index);
-            this.navCtrl.push(this.target);
+            //const index = this.viewCtrl.index;
+            //this.navCtrl.remove(index);
+            //this.navCtrl.push(this.target);
+            this.navCtrl.pop();
           }
 
       }).catch((err) => {
